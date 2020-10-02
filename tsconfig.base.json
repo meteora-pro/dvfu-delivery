@@ -6,6 +6,7 @@
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
@@ -15,7 +16,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@dvfu-delivery/types": ["libs/types/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
