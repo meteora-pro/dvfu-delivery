@@ -190,3 +190,88 @@ build-image-frontend:
     - docker build  -f deploy/frontend/Dockerfile -t $CI_REGISTRY_IMAGE:$PROJECT_VERSION -t $CI_REGISTRY_IMAGE:frontend-latest .
     - docker push $CI_REGISTRY_IMAGE:$PROJECT_VERSION
     - docker push $CI_REGISTRY_IMAGE:frontend-latest
+
+########################################
+#                DEPLOY                #
+########################################
+.deploy: &deploy
+  image: registry.gitlab.com/meteora-pro/secure/it:deploy-kit-helm3
+  stage: deploy
+  variables:
+    KUBECONFIG: /etc/deploy/config
+
+# staging
+deploy-on-staging-api:
+  <<: *deploy
+  <<: *only-api-tags
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${staging_config} | base64 -d > ${KUBECONFIG}
+  script:
+    # define variable
+    - export OLD_PROJECT_VERSION=v$(egrep -o '[[:digit:]]{1,}\.[[:digit:]]{1,}\.[[:digit:]]{1,}' package.json | head -n1)
+    - export PROJECT_VERSION=api-$(cat apps/api/version)
+    - export RELEASE_NAME="api-hackaton"
+    - export DEPLOYS=$(helm ls -n hackaton | grep $RELEASE_NAME | wc -l)
+    - cd deploy/api
+    - if [ ${DEPLOYS}  -eq 0 ]; then helm install -n hackaton --set image.tag=$PROJECT_VERSION ${RELEASE_NAME} .; else helm upgrade -n hackaton --set image.tag=$PROJECT_VERSION ${RELEASE_NAME} .; fi
+  environment:
+    name: staging-hackaton-api
+    url: https://dvfu-delivery-api.dev.meteora.pro/api/version
+
+# production
+deploy-on-production-api:
+  <<: *deploy
+  <<: *only-api-tags
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${production_config} | base64 -d > ${KUBECONFIG}
+  script:
+    # define variable
+    - export PROJECT_VERSION=api-$(cat apps/hackaton-api/version)
+    - export RELEASE_NAME="api-production-hackaton"
+    - export DEPLOYS=$(helm ls -n hackaton | grep $RELEASE_NAME | wc -l)
+    - cd deploy/api
+    - if [ ${DEPLOYS}  -eq 0 ]; then helm install -n hackaton -f production-values.yaml --set image.tag=$PROJECT_VERSION ${RELEASE_NAME} .; else helm upgrade -n hackaton -f production-values.yaml --set image.tag=$PROJECT_VERSION ${RELEASE_NAME} .; fi
+  when: manual
+  environment:
+    name: production-hackaton-api
+    url: https://dvfu-delivery-api.meteora.pro/api/version
+
+# staging
+deploy-on-staging-frontend:
+  <<: *deploy
+  <<: *only-frontend-tags
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${staging_config} | base64 -d > ${KUBECONFIG}
+  script:
+    # define variable
+    - export OLD_PROJECT_VERSION=v$(egrep -o '[[:digit:]]{1,}\.[[:digit:]]{1,}\.[[:digit:]]{1,}' package.json | head -n1)
+    - export PROJECT_VERSION=frontend-$(cat apps/frontend/version)
+    - export RELEASE_NAME="frontend-staging-hackaton"
+    - export DEPLOYS=$(helm ls -n hackaton | grep $RELEASE_NAME | wc -l)
+    - cd deploy/frontend
+    - if [ ${DEPLOYS}  -eq 0 ]; then helm install -n hackaton --set image.tag=$PROJECT_VERSION ${RELEASE_NAME} .; else helm upgrade -n hackaton --set image.tag=$PROJECT_VERSION ${RELEASE_NAME} .; fi
+  environment:
+    name: dev-hackaton-frontend
+    url: https://dvfu-delivery.dev.meteora.pro
+
+# production
+deploy-on-production-frontend:
+  <<: *deploy
+  <<: *only-frontend-tags
+  before_script:
+    - mkdir -p /etc/deploy
+    - echo ${production_config} | base64 -d > ${KUBECONFIG}
+  script:
+    # define variable
+    - export PROJECT_VERSION=frontend-$(cat apps/frontend/version)
+    - export RELEASE_NAME="frontend-production-hackaton"
+    - export DEPLOYS=$(helm ls -n hackaton | grep $RELEASE_NAME | wc -l)
+    - cd deploy/frontend
+    - if [ ${DEPLOYS}  -eq 0 ]; then helm install -n hackaton -f production-values.yaml --set image.tag=$PROJECT_VERSION ${RELEASE_NAME} .; else helm upgrade -n hackaton -f production-values.yaml --set image.tag=$PROJECT_VERSION ${RELEASE_NAME} .; fi
+  when: manual
+  environment:
+    name: production-hackaton-api
+    url: https://dvfu-delivery.meteora.pro
