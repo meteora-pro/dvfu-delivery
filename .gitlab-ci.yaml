@@ -1,0 +1,192 @@
+stages:
+  - increment-version-api
+  - increment-version-frontend
+  - build
+  - deploy
+
+
+.node: &node
+  image: node:10
+
+.master: &master
+  only:
+    - master
+
+.install-deps: &install-deps
+  before_script:
+    - npm set registry $NPM_REGISTRY
+    - npm ci
+
+.increment: &increment
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Increment version/
+
+# API SERVICE
+.only-api-changes: &only-api-changes
+  changes:
+    - .gitlab-ci.yml
+    - nest-cli.json
+    - tsconfig.json
+    - tsconfig.build.json
+    - package.json
+    - libs/**/*
+    - tools/**/*
+    - deploy/**/*
+    - apps/api/**/*
+
+.only-api: &only-api
+  only:
+    <<: *only-api-changes
+
+.only-api-tags: &only-api-tags
+  only:
+    changes:
+      - apps/api/package.json
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Increment version api/
+  except:
+    - tags
+
+.increment-api: &increment-api
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Increment version api/
+
+.branches-api: &branches-api
+  only:
+    <<: *only-api-changes
+  except:
+    - master
+    - tags
+
+# FRONTEND SERVICE
+.only-frontend-changes: &only-frontend-changes
+  changes:
+    - .gitlab-ci.yml
+    - angular.json
+    - tsconfig.json
+    - tsconfig.build.json
+    - package.json
+    - libs/**/*
+    - tools/**/*
+    - deploy/**/*
+    - apps/frontend/**/*
+
+.only-frontend: &only-frontend
+  only:
+    <<: *only-frontend-changes
+
+.only-frontend-tags: &only-frontend-tags
+  only:
+    changes:
+      - apps/frontend/package.json
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Increment version frontend/
+  except:
+    - tags
+
+.increment-frontend: &increment-frontend
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Increment version frontend/
+
+.branches-frontend: &branches-frontend
+  only:
+    <<: *only-frontend-changes
+  except:
+    - master
+    - tags
+
+########################################
+#          INCREMENT VERSION           #
+########################################
+increment-version-api:
+  <<: *increment
+  <<: *node
+  only:
+    <<: *only-api-changes
+    refs:
+      - master
+  stage: increment-version-api
+  variables:
+    CI_REPOSITORY_URL: https://$GIT_ACCESS_USER:$ACCESS_TOKEN_FOR_PUSH@gitlab.com/$CI_PROJECT_PATH.git
+  script:
+    - git config --global http.postBuffer 157286400
+    - git config user.name $GIT_ACCESS_USER
+    - git config user.email $GITLAB_USER_EMAIL
+    - git pull origin master
+    - cd apps/api
+    - export GIT_TAG_VERSION=api-release-$(npm --no-git-tag-version version patch)
+    - cd ../..
+    - export PROJECT_VERSION=$(egrep -o '[[:digit:]]{1,}\.[[:digit:]]{1,}\.[[:digit:]]{1,}' ./apps/api/package.json | head -n1)
+    - echo $PROJECT_VERSION > apps/api/version
+    - sed -i -- "s/appVersion:[[:space:]][[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+/appVersion:\ $PROJECT_VERSION/g" ./deploy/api/Chart.yaml
+    - echo $(git push --delete $CI_REPOSITORY_URL $GIT_TAG_VERSION) || true
+    - git add . && git commit -m "[Increment version api $GIT_TAG_VERSION]"
+    - git tag $GIT_TAG_VERSION
+    - git pull origin master
+    - git push $CI_REPOSITORY_URL HEAD:master
+    - echo $(git push --tags $CI_REPOSITORY_URL HEAD:$CI_COMMIT_REF_NAME) || true
+
+increment-version-frontend:
+  <<: *increment
+  <<: *node
+  only:
+    <<: *only-frontend-changes
+    refs:
+      - master
+  stage: increment-version-frontend
+  variables:
+    CI_REPOSITORY_URL: https://$GIT_ACCESS_USER:$ACCESS_TOKEN_FOR_PUSH@gitlab.com/$CI_PROJECT_PATH.git
+  script:
+    - git config --global http.postBuffer 157286400
+    - git config user.name $GIT_ACCESS_USER
+    - git config user.email $GITLAB_USER_EMAIL
+    - git pull origin master
+    - cd apps/frontend
+    - export GIT_TAG_VERSION=frontend-release-$(npm --no-git-tag-version version patch)
+    - cd ../..
+    - export PROJECT_VERSION=$(egrep -o '[[:digit:]]{1,}\.[[:digit:]]{1,}\.[[:digit:]]{1,}' ./apps/frontend/package.json | head -n1)
+    - echo $PROJECT_VERSION > apps/frontend/version
+    - sed -i -- "s/appVersion:[[:space:]][[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+/appVersion:\ $PROJECT_VERSION/g" ./deploy/frontend/Chart.yaml
+    - echo $(git push --delete $CI_REPOSITORY_URL $GIT_TAG_VERSION) || true
+    - git add . && git commit -m "[Increment version frontend $GIT_TAG_VERSION]"
+    - git tag $GIT_TAG_VERSION
+    - git pull origin master
+    - git push $CI_REPOSITORY_URL HEAD:master
+    - echo $(git push --tags $CI_REPOSITORY_URL HEAD:$CI_COMMIT_REF_NAME) || true
+
+########################################
+#                BUILD                 #
+########################################
+.build: &build
+  image: andreymaznyak/docker-git-perl:latest
+  stage: build
+  variables:
+    GIT_STRATEGY: clone
+  services:
+    - docker:18.09.7-dind
+  before_script:
+    - echo "registry=$NPM_REGISTRY" > .npmrc
+# master
+build-image-api:
+  <<: *build
+  <<: *only-api-tags
+  script:
+    - export PROJECT_VERSION=api-$(cat apps/api/version)
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -f deploy/api/Dockerfile -t $CI_REGISTRY_IMAGE:$PROJECT_VERSION -t $CI_REGISTRY_IMAGE:api-latest .
+    - docker push $CI_REGISTRY_IMAGE:$PROJECT_VERSION
+    - docker push $CI_REGISTRY_IMAGE:api-latest
+
+# master
+build-image-frontend:
+  <<: *build
+  <<: *only-frontend-tags
+  script:
+    - export PROJECT_VERSION=frontend-$(cat apps/frontend/version)
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build  -f deploy/frontend/Dockerfile -t $CI_REGISTRY_IMAGE:$PROJECT_VERSION -t $CI_REGISTRY_IMAGE:frontend-latest .
+    - docker push $CI_REGISTRY_IMAGE:$PROJECT_VERSION
+    - docker push $CI_REGISTRY_IMAGE:frontend-latest

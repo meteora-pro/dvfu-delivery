@@ -2,13 +2,23 @@ FROM node:12 as builder
 # Choose a workdir
 WORKDIR /usr/src/app
 # Copy sources
-COPY ../../apps/api/package.json .
+COPY package.json .
 COPY .npmrc .
+
+COPY angular.json .
+COPY tools .
+COPY decorate-angular-cli.js .
+COPY nx.json .
+COPY tsconfig.base.json .
+
 COPY package-lock.json .
 RUN npm ci
-COPY api .
+
+COPY libs .
+COPY apps/api .
+
 # Build app
-RUN npm run build
+RUN npm run build:api
 
 RUN npm prune --production
 
