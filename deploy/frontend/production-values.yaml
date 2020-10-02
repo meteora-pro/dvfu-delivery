@@ -1,0 +1,4 @@
+image:
+  repository: registry.gitlab.com/meteora-pro/hackaton2020/dvfu-delivery
+  tag: frontend-latest
+  pullPolicy: Always

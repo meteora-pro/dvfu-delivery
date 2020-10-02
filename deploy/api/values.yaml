@@ -5,10 +5,12 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  pullPolicy: IfNotPresent
+  repository: registry.gitlab.com/meteora-pro/hackaton2020/dvfu-delivery
+  tag: api-latest
+  pullPolicy: Always
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: gitlab
 nameOverride: ""
 fullnameOverride: ""
 
@@ -37,17 +39,19 @@ service:
   port: 80
 
 ingress:
-  enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
   hosts:
-    - host: chart-example.local
-      paths: []
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - host: dvfu-delivery-api.dev.meteora.pro
+      paths:
+        - '/'
+  tls:
+    - secretName: dvfu-delivery-api-dev-meteora-pro-tls
+      hosts:
+        - dvfu-delivery-api.dev.meteora.pro
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
