@@ -14,9 +14,10 @@ COPY tsconfig.base.json .
 COPY package-lock.json .
 RUN npm ci
 
-COPY libs .
-COPY apps/api .
-
+COPY ormconfig.js .
+COPY libs /usr/src/app/libs
+COPY apps/api /usr/src/app/apps/api
+COPY config/api /usr/src/app/config/api
 # Build app
 RUN npm run build:api
 
@@ -27,11 +28,13 @@ ENV NODE_ENV=production
 RUN mkdir -p /usr/api
 
 WORKDIR /usr/api
-
+COPY apps/api/package.json /usr/api
 COPY --from=builder /usr/src/app/ormconfig.js /usr/api
 COPY --from=builder /usr/src/app/config/api /usr/api/config/api
-COPY --from=builder /usr/src/app/dist/apps/api /usr/api
+COPY --from=builder /usr/src/app/dist/apps/api /usr/api/apps/api
 COPY --from=builder /usr/src/app/node_modules /usr/api/node_modules
 
+RUN ls /usr/api
+RUN pwd
 CMD ["node", "./apps/api/main.js"]
-EXPOSE 3000
+EXPOSE 3333
