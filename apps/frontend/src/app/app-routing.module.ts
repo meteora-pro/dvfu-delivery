@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileModule } from './profile/profile.module';
 import { BaseLayoutComponent } from './shared/layouts/base-layout/base-layout.component';
 import { EmptyLayoutComponent } from './shared/layouts/empty-layout/empty-layout.component';
 
@@ -48,6 +50,17 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'profile',
+    component: BaseLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: ProfileComponent,
+      },
+    ],
+
+  },
 ];
 
 @NgModule({
@@ -55,7 +68,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
     }),
+    ProfileModule,
   ],
-  exports: [RouterModule],
+  exports: [ RouterModule ],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

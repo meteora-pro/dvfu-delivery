@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Order } from '@dvfu-delivery/types';
+import { LinkDeliveryBody, Order } from '@dvfu-delivery/types';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 export interface OrderCreateDto extends Pick<Order, 'shop' | 'positions' | 'expiredAt' | 'deliveryTo'> {}
@@ -45,6 +45,12 @@ export class OrderService {
           return order;
         }))
     );
+  }
+
+  linkOrderToDelivery(body: LinkDeliveryBody) {
+    return this.httpClient.post(`${environment.serverBaseUrl}/order/delivery`, body).pipe(tap( order => {
+      console.log(order);
+    }));
   }
 }
 
