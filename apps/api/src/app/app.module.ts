@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    AppConfigModule,
     TypeOrmModule.forRootAsync({
       imports: [AppConfigModule],
       useFactory: async (appConfig: AppConfig) => appConfig.dbConnection,

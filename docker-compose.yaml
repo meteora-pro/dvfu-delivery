@@ -31,6 +31,8 @@ services:
      POSTGRES_USER: postgres
     ports:
       - '5432:5432'
+    expose:
+      - '5432'
     volumes:
       - 'postgres_data:/var/lib/postgresql/data'
   pgadmin:
