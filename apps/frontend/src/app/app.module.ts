@@ -10,7 +10,13 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    RouterModule.forRoot([{
+      path: 'delivery',
+      loadChildren:  () => import('./delivery/delivery.module').then(m => m.DeliveryModule),
+    }, {
+      path: 'order',
+      loadChildren:  () => import('./order/order.module').then(m => m.OrderModule),
+    }], { initialNavigation: 'enabled' }),
     BrowserAnimationsModule,
     MatButtonModule,
     HttpClientModule
