@@ -1,0 +1,43 @@
+@mixin layouts() {
+    .layout-container {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        &--mobile {
+            flex: 1 0 auto;
+        }
+    }
+
+    .toolbar {
+        transition: margin-top 0.5s;
+        z-index: 2;
+        &--mobile {
+            position: fixed;
+        }
+
+        &--hidden {
+            margin-top: -64px;
+        }
+
+        &--spacer {
+            flex: 1 1 auto;
+        }
+    }
+
+    .sidenav {
+        &__container {
+            flex: 1;
+            margin-top: 0;
+
+            &--mobile {
+                flex: 1 0 auto;
+                margin-top: 56px;
+            }
+        }
+    }
+}

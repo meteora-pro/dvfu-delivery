@@ -1,0 +1,5 @@
+@import "./main/layouts";
+
+@mixin main-theme() {
+  @include layouts()
+}

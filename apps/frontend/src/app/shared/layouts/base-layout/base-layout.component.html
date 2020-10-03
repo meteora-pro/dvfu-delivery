@@ -1,0 +1,57 @@
+<ng-container
+  *ngLet="{ isMobile: isMobile$ | async, isScrollDownDirection: isScrollDownDirection$ | async } as tmplVariables"
+>
+  <div class="layout-container" [class.layout-container--mobile]="tmplVariables.isMobile">
+    <mat-toolbar
+      color="primary"
+      class="toolbar"
+      [class.toolbar--mobile]="tmplVariables.isMobile"
+      [class.toolbar--hidden]="tmplVariables.isMobile && tmplVariables.isScrollDownDirection"
+    >
+      <button mat-icon-button (click)="navigationSideNav.toggle()">
+        <mat-icon>{{ navigationSideNav.opened ? 'menu_open' : 'menu' }}</mat-icon>
+      </button>
+      <h1 class="example-app-name">Товарищи</h1>
+      <span class="toolbar--spacer"></span>
+      <button mat-icon-button (click)="notificationSideNav.toggle()">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Notifications">notifications</mat-icon>
+      </button>
+
+      <button mat-icon-button routerLink="/auth/sign-in">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Login">login</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-sidenav-container
+      class="sidenav sidenav__container"
+      [class.sidenav__container--mobile]="tmplVariables.isMobile"
+    >
+      <mat-sidenav
+        #navigationSideNav
+        [mode]="tmplVariables.isMobile ? 'over' : 'side'"
+        [fixedInViewport]="tmplVariables.isMobile"
+        [opened]="isLargeDesktop$ | async"
+        position="start"
+        fixedTopGap="56"
+      >
+        <mat-nav-list>
+          <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{ nav }}</a>
+        </mat-nav-list>
+      </mat-sidenav>
+
+      <mat-sidenav
+        #notificationSideNav
+        mode="over"
+        [fixedInViewport]="tmplVariables.isMobile"
+        fixedTopGap="56"
+        position="end"
+      >
+        End content
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</ng-container>
