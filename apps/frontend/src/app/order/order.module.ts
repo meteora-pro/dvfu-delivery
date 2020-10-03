@@ -13,21 +13,25 @@ import { OrderPositionListFormComponent } from './order-position-list-form/order
 import { MatSelectModule } from '@angular/material/select';
 import { NgxsModule } from '@ngxs/store';
 import { OrderState } from './store/order.state';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import { ModalOrderPositionFormComponent } from './modal-order-position-form/modal-order-position-form.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([{
-        path: '',
-        component: OrderComponent,
-        children: [
-          {
-            path: 'create',
-            component: CreateOrderComponent,
-          },
-        ]
-      },
+      path: '',
+      component: OrderComponent,
+      children: [
+        {
+          path: 'create',
+          component: CreateOrderComponent,
+        },
+      ]
+    },
       {
         path: '**',
         redirectTo: '/create'
@@ -37,11 +41,13 @@ import { OrderState } from './store/order.state';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule,
     MatSelectModule,
-    NgxsModule.forFeature([OrderState])
+    NgxsModule.forFeature([OrderState]),
+    MatExpansionModule,
+    MatCardModule
   ],
-  declarations: [OrderComponent, CreateOrderComponent, OrderPositionListFormComponent],
+  declarations: [
+    OrderComponent, CreateOrderComponent, OrderPositionListFormComponent, ModalOrderPositionFormComponent],
 })
 export class OrderModule {
 }

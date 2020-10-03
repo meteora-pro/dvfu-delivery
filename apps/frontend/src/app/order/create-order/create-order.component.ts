@@ -22,8 +22,8 @@ export class CreateOrderComponent implements OnInit {
     shopId: new FormControl(1),
     expiredTime: new FormControl(15),
     orderPositionList: new FormControl([{
-      title: null,
-      maxCost: null,
+      title: 'Колбаса',
+      maxCost: 150,
     }])
   });
 
