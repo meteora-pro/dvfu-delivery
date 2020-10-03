@@ -5,7 +5,8 @@ import { AppConfig } from './app.config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `config/.${AppConfig.runtimeEnv}.env`,
+      envFilePath: `./config/api/.${AppConfig.runtimeEnv}.env`,
+      isGlobal: true,
     }),
   ],
   providers: [AppConfig],

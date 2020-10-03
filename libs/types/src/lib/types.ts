@@ -7,7 +7,7 @@ export interface User {
   name: string;
   email: string;
   telegram: string;
-  avatar: string;
+  avatar?: string;
 }
 
 export enum OrderStatus {
@@ -39,6 +39,7 @@ export interface Order {
   customerVote?: Vote;
   deliverymanVote?: Vote;
   readonly deliveryMan: User;
+  delivery?: Delivery;
 }
 
 export enum OrderPositionStatus {

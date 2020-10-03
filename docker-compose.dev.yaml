@@ -3,24 +3,6 @@
 version: '3'
 
 services:
-  frontend:
-    build:
-      context: ./
-      dockerfile: ./deploy/frontend/Dockerfile
-    hostname: frontend
-    networks:
-      - overlay
-    ports:
-      - '80:80'
-  api:
-    build:
-      context: ./
-      dockerfile: ./deploy/api/Dockerfile
-    hostname: api
-    networks:
-      - overlay
-    ports:
-      - '3333:3333'
   postgres:
     image: "postgres:10-alpine"
     hostname: "postgres"

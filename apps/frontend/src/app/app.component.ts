@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ServerVersionInfo } from '../../../../libs/types/src/lib/types';
+import { ServerVersionInfo } from '@dvfu-delivery/types';
 import { ServerInfoService } from './server-info.service';
 
 @Component({
