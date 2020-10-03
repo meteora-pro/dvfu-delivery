@@ -41,7 +41,7 @@ export class CreateDeliveryComponent implements OnInit {
 
   public mockShop: Shop = {
     id: 1,
-    name: 'Магазин у тети Зои',
+    name: 'Самбери',
     description: 'Лучший в мире магазин с дошираком и майонезом на розлив',
     address: 'ул. Пушкина, д. Колотушкина'
   }
@@ -50,11 +50,11 @@ export class CreateDeliveryComponent implements OnInit {
     {
       id: 1,
       user: this.mockUser,
-      positions: this.mockPositions,
+      positions: this.mockPositions.slice(-2),
       shop: this.mockShop,
       createAt: new Date(Date.now()),
       expiredAt: new Date(Date.now()),
-      deliveryTo: 'До туалета за углом',
+      deliveryTo: 'Центральный вход',
       status: OrderStatus.WAITING_DELIVERYMAN,
       totalMaxCost: 1000,
       deliverymanBenefit: 100,
@@ -63,11 +63,11 @@ export class CreateDeliveryComponent implements OnInit {
     {
       id: 2,
       user: this.mockUser,
-      positions: this.mockPositions,
+      positions: this.mockPositions.slice(-1),
       shop: this.mockShop,
       createAt: new Date(Date.now()),
       expiredAt: new Date(Date.now()),
-      deliveryTo: 'В самую страшную подсобку',
+      deliveryTo: 'Корпус А',
       status: OrderStatus.WAITING_DELIVERYMAN,
       totalMaxCost: 1000,
       deliverymanBenefit: 123,
@@ -76,11 +76,11 @@ export class CreateDeliveryComponent implements OnInit {
     {
       id: 3,
       user: this.mockUser,
-      positions: this.mockPositions,
+      positions: [...this.mockPositions, ...this.mockPositions, ...this.mockPositions, ...this.mockPositions],
       shop: this.mockShop,
       createAt: new Date(Date.now()),
       expiredAt: new Date(Date.now()),
-      deliveryTo: 'К бабушке на деревню',
+      deliveryTo: 'Южные ворота',
       status: OrderStatus.WAITING_DELIVERYMAN,
       totalMaxCost: 1000,
       deliverymanBenefit: 200,
@@ -93,7 +93,7 @@ export class CreateDeliveryComponent implements OnInit {
       shop: null,
       createAt: new Date(Date.now()),
       expiredAt: new Date(Date.now()),
-      deliveryTo: 'В деканат',
+      deliveryTo: 'Корпус В',
       status: OrderStatus.WAITING_DELIVERYMAN,
       totalMaxCost: 1000,
       deliverymanBenefit: 500,

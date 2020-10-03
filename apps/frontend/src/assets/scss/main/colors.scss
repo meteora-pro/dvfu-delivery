@@ -3,5 +3,14 @@
   .color-gray {
     color: mat-color($mat-gray, 500);
   }
+
+
+  .background-primary {
+    background-color: mat-color($mat-blue-gray, 900);
+  }
+
+  .color-accent {
+    color: mat-color($mat-blue, A200) !important;
+  }
 }
 

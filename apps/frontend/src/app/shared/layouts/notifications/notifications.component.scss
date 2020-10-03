@@ -1,0 +1,22 @@
+.notification {
+  &__container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-content: center;
+    max-height: 375px;
+  }
+
+  &__empy {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 20px 0;
+  }
+
+  &__empty-button {
+    width: 100%;
+    border: 1px rgba(48, 79, 254, 1) solid;
+    margin-top: 20px;
+  }
+}
+
