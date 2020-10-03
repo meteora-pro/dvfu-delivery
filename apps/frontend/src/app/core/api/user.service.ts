@@ -28,7 +28,7 @@ export class UserService {
       return of(this.currentUser);
     }
     const userId = localStorage.getItem('id');
-    return this.httpClient.post<User>(`${environment.serverBaseUrl}/user/me`, { userId }).pipe( tap(user => {
+    return this.httpClient.post<User>(`${environment.serverBaseUrl}/users/me`, { userId }).pipe( tap(user => {
       this.currentUser = user;
       localStorage.setItem('id', user.id + '');
       localStorage.setItem(LOCAL_STORAGE_USER_KEY, JSON.stringify(user));

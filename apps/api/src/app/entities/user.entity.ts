@@ -27,10 +27,10 @@ export class UserEntity implements User {
   telegram: string;
 
   @ApiProperty({ nullable: true })
-  @Column({ nullable: true })
+  @Column('float',{ nullable: true })
   customerRating?: number;
 
   @ApiProperty({ nullable: true })
-  @Column({ nullable: true })
+  @Column('float',{ nullable: true })
   deliveryManRating?: number;
 }
