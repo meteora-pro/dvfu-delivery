@@ -1,8 +1,9 @@
-import { OrderPosition } from '@dvfu-delivery/types';
+import { Order, OrderPosition } from '@dvfu-delivery/types';
 
 export interface OrderStateModel {
   data: LocalOrderData,
   appraisal?: OrderAppraisal;
+  orders: Order[];
 }
 
 /**

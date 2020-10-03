@@ -1,8 +1,8 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { ChangeMinCostOfDelivery, CreateOrder, RecalculateOrderAppraisal } from './order.actions';
+import { ChangeMinCostOfDelivery, CreateOrder, LoadMyOrders, RecalculateOrderAppraisal } from './order.actions';
 import { Injectable } from '@angular/core';
 import { OrderService } from '../../core/api/order.service';
-import { OrderPosition, Shop } from '@dvfu-delivery/types';
+import { Order, OrderPosition, Shop } from '@dvfu-delivery/types';
 import { OrderAppraisal, OrderStateModel } from './order.model';
 import { defaultOrderPositionsData } from '../mock/order-data.mock';
 
@@ -16,7 +16,8 @@ type Ctx = StateContext<OrderStateModel>;
       minMarkup: 100,
       percent: 3,
       additionalMarkup: 0,
-    }
+    },
+    orders: [],
   }
 })
 @Injectable()
@@ -42,6 +43,20 @@ export class OrderState {
   @Selector()
   static appraisal(state: OrderStateModel): OrderAppraisal {
     return state.appraisal;
+  }
+
+  @Selector()
+  static orders(state: OrderStateModel): Order[] {
+    return state.orders;
+  }
+
+  @Action(LoadMyOrders)
+  loadMyOrders(ctx: Ctx) {
+    this.orderService.getMyOrders().subscribe((orders) => {
+      ctx.patchState({
+        orders
+      })
+    })
   }
 
   @Action(CreateOrder)

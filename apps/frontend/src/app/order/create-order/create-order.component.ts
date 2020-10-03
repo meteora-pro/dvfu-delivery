@@ -9,7 +9,7 @@ import { OrderState } from '../store/order.state';
 import { Observable, Subject } from 'rxjs';
 import { OrderAppraisal } from '../store/order.model';
 import { delay, takeUntil } from 'rxjs/operators';
-import { ModalAdditionalMarkupComponent } from '../modal-additional-markup/modal-additional-markup.component';
+import { ModalAdditionalMarkupComponent } from '../components/modal-additional-markup/modal-additional-markup.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({

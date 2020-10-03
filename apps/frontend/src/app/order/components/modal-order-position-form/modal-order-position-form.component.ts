@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { OrderPosition } from '../../../../../../libs/types/src';
+import { OrderPosition } from '../../../../../../../libs/types/src';
 
 @Component({
   selector: 'modal-order-position-form',
