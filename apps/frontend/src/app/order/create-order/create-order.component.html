@@ -18,7 +18,7 @@
     </mat-select>
   </mat-form-field>
 
-  <h2 class="mat-h2 header">Что доставить?</h2>
+  <h3 class="mat-h3 header">Что доставить?</h3>
   <order-position-list-form formControlName="orderPositionList"></order-position-list-form>
   <br>
   <ng-container *ngIf="{
@@ -45,9 +45,9 @@
         {{ tmplVars.appraisal?.costOfDelivery }} ₽
         </span>
         </div>
-        <span class="color-accent" (click)="editAdditionalMarkup(tmplVars.appraisal)">
+        <small class="color-accent" (click)="editAdditionalMarkup(tmplVars.appraisal)">
           Увеличьте вознаграждение за доставку, чтобы ваш заказ доставили быстрее
-        </span>
+        </small>
         <mat-divider></mat-divider>
         <div class="appraisal-item">
         <span class="appraisal-item__label">
