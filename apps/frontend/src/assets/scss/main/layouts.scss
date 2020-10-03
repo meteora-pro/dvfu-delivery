@@ -44,4 +44,7 @@
   .container {
     display: flex;
   }
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    //padding: 6px 0 12px 0;
+  }
 }

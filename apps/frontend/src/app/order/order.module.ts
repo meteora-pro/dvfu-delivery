@@ -16,6 +16,7 @@ import { OrderState } from './store/order.state';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { ModalOrderPositionFormComponent } from './modal-order-position-form/modal-order-position-form.component';
+import { FormPluginModule } from '../../modules/form-plugin/form-plugin.module';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { ModalOrderPositionFormComponent } from './modal-order-position-form/mod
     MatSelectModule,
     NgxsModule.forFeature([OrderState]),
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    FormPluginModule,
   ],
   declarations: [
     OrderComponent, CreateOrderComponent, OrderPositionListFormComponent, ModalOrderPositionFormComponent],
