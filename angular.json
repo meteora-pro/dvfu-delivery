@@ -222,7 +222,7 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/nest",
+    "defaultCollection": "@nrwl/angular",
     "analytics": false
   },
   "schematics": {

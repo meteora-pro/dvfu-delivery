@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+@mixin colors() {
+  .color-gray {
+    color: mat-color($mat-gray, 500);
+  }
+}
+

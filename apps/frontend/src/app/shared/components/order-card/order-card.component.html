@@ -1,1 +1,37 @@
-<p>order-card works!</p>
+<mat-card class="order-card">
+  <mat-card-header>
+    <mat-card-title class="order-card__title">
+
+    </mat-card-title>
+    <mat-card-subtitle>
+
+
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="order-card__header">
+      <span class="mat-h2">
+      {{order.positions.length | i18nPlural
+        : {
+          zero: "",
+          one: "# позиция",
+          other: "# позиций"
+        } }}
+      </span>
+      <span class="mat-h1">
+      {{order.deliverymanBenefit | number }} ₽
+      </span>
+    </div>
+
+    <div class="order-card__description">
+      <div class="description__store color-gray">
+        <mat-icon class="gray">store</mat-icon> <span class="order-card__store-name">{{order?.shop?.name || 'Любой'}}</span>
+      </div>
+    </div>
+
+
+  </mat-card-content>
+  <mat-card-actions class="order-card__actions">
+    <button mat-raised-button color="accent">Подробности</button>
+  </mat-card-actions>
+</mat-card>

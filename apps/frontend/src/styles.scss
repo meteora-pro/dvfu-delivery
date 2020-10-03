@@ -7,7 +7,7 @@
 @include mat-core();
 
 $style-cloud-primary: mat-palette($mat-blue-gray);
-$style-cloud-accent: mat-palette($mat-pink, A200, A100, A400);
+$style-cloud-accent: mat-palette($mat-blue, A200, A100, A400);
 
 $style-cloud-warn: mat-palette($mat-red);
 $style-cloud-theme: mat-light-theme((
@@ -25,3 +25,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 // custom styles
 @include main-theme();
+
