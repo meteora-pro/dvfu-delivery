@@ -11,7 +11,7 @@
 * postgresSQL (можно поднять через docker-compose.dev.yaml)
 `docker-compose up -f ./docker-compose.dev.yaml`
 
-Для удовства внутри docker-compose еще лежит pgadmin.
+Для удобства внутри docker-compose еще лежит pgadmin.
 
 
 

@@ -13,7 +13,7 @@
       </button>
       <img class="header" src="assets/icons/icon-96x96-inverse.png" [routerLink]="['/']">
       <span class="toolbar--spacer"></span>
-      <button mat-icon-button (click)="notificationSideNav.toggle()">
+      <button mat-icon-button (click)="openNotifications()">
         <mat-icon class="example-icon" aria-hidden="false" aria-label="Notifications">notifications</mat-icon>
       </button>
 
@@ -69,15 +69,6 @@
 
       </mat-sidenav>
 
-      <mat-sidenav
-        #notificationSideNav
-        mode="over"
-        [fixedInViewport]="tmplVariables.isMobile"
-        fixedTopGap="56"
-        position="end"
-      >
-        End content
-      </mat-sidenav>
 
       <mat-sidenav-content>
         <router-outlet></router-outlet>
