@@ -1,6 +1,32 @@
-<p>landing works!</p>
+<div class="container">
+  <div class="logo">
+    <img class="landing-img" src="assets/icons/icon-384x384.png" />
+  </div>
 
+  <div class="buttons">
+    <button mat-raised-button color="primary" [routerLink]="['/order/create']">Я хочу заказать</button>
+    <button mat-raised-button color="primary" [routerLink]="['/delivery/create']">Я хочу доставить</button>
+  </div>
 
-<div *ngFor="let i of fakeArray">
-  <span>test</span>
+  <div class="title">
+    <span class="mat-title">
+      Сервис заказа товаров и продуктов
+    </span>
+  </div>
+
+  <div class="mat-body">
+    <p>
+      Товарищи - это сервис, который основан на взаимовыгодном сотрудничестве
+      студентов или преподавателей ДВФУ в совершении покупок за пределами
+      университета.
+    </p>
+    <p>
+      Если нуждаешься в товарах и нет возможности или желания далеко ехать за
+      ними - можешь оставить заявку и другой человек поможет.
+    </p>
+    <p>
+      Если хочешь заработать, то можешь взять заявку, собрать товары в магазине
+      и привезти своему товарищу.
+    </p>
+  </div>
 </div>

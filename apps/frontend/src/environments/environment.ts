@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverBaseUrl: 'http://localhost:3333/api'
+  serverBaseUrl: 'https://dvfu-delivery-api.dev.meteora.pro/api'
 };
 
 /*

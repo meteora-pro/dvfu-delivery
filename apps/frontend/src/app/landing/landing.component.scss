@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  margin: 10px;
+  flex-flow: column;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+}
+
+.landing-img {
+  width: 60%;
+  object-fit: contain;
+  max-width: 384px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+
+}
