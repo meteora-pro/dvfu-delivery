@@ -9,7 +9,8 @@
          [(ngModel)]="value"
          [ngModelOptions]="{standalone: true}"
          [placeholder]="'Не меннее ' + minCostOfDelivery"
-         type="number">
+         type="number"
+          #inputCost>
   <span matSuffix>₽</span>
 </mat-form-field>
 <div class="modal-action">

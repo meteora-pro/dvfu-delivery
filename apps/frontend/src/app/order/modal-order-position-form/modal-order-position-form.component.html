@@ -3,7 +3,8 @@
   <input matInput
          required
          [(ngModel)]="orderPosition.title"
-         [ngModelOptions]="{standalone: true}">
+         [ngModelOptions]="{standalone: true}"
+         #inputTitle>
 </mat-form-field>
 <mat-form-field appearance="outline">
   <mat-label>Максимальная цена</mat-label>

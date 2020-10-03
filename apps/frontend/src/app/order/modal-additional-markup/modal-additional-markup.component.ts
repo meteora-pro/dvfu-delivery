@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  ViewChild
+} from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 @Component({
@@ -7,13 +15,16 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bott
   styleUrls: ['./modal-additional-markup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ModalAdditionalMarkupComponent {
+export class ModalAdditionalMarkupComponent implements AfterViewInit {
 
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data,
               private cdr: ChangeDetectorRef,
               private bottomSheetRef: MatBottomSheetRef<ModalAdditionalMarkupComponent>) {
     this.minCostOfDelivery = data.minCostOfDelivery;
   }
+
+  @ViewChild('inputCost', {static: true})
+  inputCostRef: ElementRef;
 
   /**
    * Сумма минимального вознаграждения.
@@ -29,5 +40,13 @@ export class ModalAdditionalMarkupComponent {
 
   handleClose() {
     this.bottomSheetRef.dismiss(false);
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.inputCostRef && this.inputCostRef.nativeElement) {
+        this.inputCostRef.nativeElement.focus();
+      }
+    });
   }
 }
