@@ -27,5 +27,5 @@ export const defaultOrderPositionsData: LocalOrderData = {
   deliveryTo: 'Кампус ДВФУ',
   shopId: 1,
   expiredTime: 15,
-  orderPositionList: [{title: 'Test', maxCost: 500}, {title: 'Огурцы', maxCost: 250}],
+  orderPositionList: [],
 };
