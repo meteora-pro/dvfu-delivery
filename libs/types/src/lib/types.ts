@@ -8,8 +8,8 @@ export interface User {
   email: string;
   telegram: string;
   avatar?: string;
-  readonly customerRating: number; // рейтинг от 1 до 5 как скользящее средние от 10 последних выполненных (получение) заказов
-  readonly deliveryManRating: number; // рейтинг от 1 до 5 как скользящее средние от 10 последних выполненных (доставка заказов
+  readonly customerRating?: number; // рейтинг от 1 до 5 как скользящее средние от 10 последних выполненных (получение) заказов
+  readonly deliveryManRating?: number; // рейтинг от 1 до 5 как скользящее средние от 10 последних выполненных (доставка заказов
 }
 
 export enum OrderStatus {
