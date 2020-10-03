@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Order, OrderPosition, OrderPositionStatus, OrderStatus, Shop, User } from '@dvfu-delivery/types';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { OrderService } from '../../core/api/order.service';
 
 @Component({
   selector: 'dvfu-delivery-create-delivery',
@@ -7,11 +10,18 @@ import { Order, OrderPosition, OrderPositionStatus, OrderStatus, Shop, User } fr
   styleUrls: ['./create-delivery.component.scss'],
 })
 export class CreateDeliveryComponent implements OnInit {
-  constructor() {}
 
-  ngOnInit(): void {}
+  public orders$: Observable<Order[]>;
 
-  public mockUser: User = {
+  constructor(
+    private orderService: OrderService,
+  ) {}
+
+  ngOnInit(): void {
+    this.orders$ = this.orderService.getAvailableOrders();
+  }
+
+  mockUser: User = {
     avatar: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
     customerRating: 4.5,
     deliveryManRating: 3.8,
@@ -21,7 +31,7 @@ export class CreateDeliveryComponent implements OnInit {
     telegram: '@vasya_pupkin',
   };
 
-  public mockPositions: OrderPosition[] = [
+  mockPositions: OrderPosition[] = [
     {
       title: 'Вкусный чебурек - 1шт',
       maxCost: 500,

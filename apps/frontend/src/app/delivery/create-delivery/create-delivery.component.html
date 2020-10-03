@@ -4,7 +4,7 @@
 
 
 <div class="delivery-list">
-  <ng-container  *ngFor="let order of orders">
+  <ng-container  *ngFor="let order of orders$ | async">
     <delivery-order-card [order]="order"></delivery-order-card>
   </ng-container>
 </div>

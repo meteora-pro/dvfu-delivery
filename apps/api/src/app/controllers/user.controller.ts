@@ -16,4 +16,6 @@ import { UserService } from '../services/user.service';
 @Controller("users")
 export class UserController implements CrudController<UserEntity> {
   constructor(public service: UserService) {}
+
+  calculateRatings() {}
 }
