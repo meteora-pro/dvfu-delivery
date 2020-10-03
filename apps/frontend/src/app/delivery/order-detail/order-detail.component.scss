@@ -3,6 +3,14 @@
   padding: 12px 16px;
   //box-shadow: 1px 2px 4px 3px rgba(48, 79, 254, 0.2);
   //border-radius: 8px;
+  max-width: 450px;
+  .order-header {
+    margin-bottom: 16px;
+    .order-owner-telegram {
+      margin-top: 8px;
+    }
+  }
+
   .order-rating {
     display: flex;
     .mat-icon {
@@ -12,6 +20,13 @@
     }
     .mat-subheader {
       padding: 0;
+    }
+  }
+
+  .oder-details {
+    margin-bottom: 24px;
+    div:not(:last-child) {
+      margin-bottom: 12px;
     }
   }
   .mat-card-title {
@@ -41,5 +56,16 @@
   ::ng-deep .mat-list-item-content {
     border-bottom: solid 1px rgba(33, 33, 33, 0.08);
     display: block;
+  }
+
+  ::ng-deep .mat-stroked-button {
+    border: 1px solid #455A64 !important;
+  }
+
+  mat-card-actions {
+    margin: 0;
+    ::ng-deep button:last-child {
+      margin: 0 0 0 16px;
+    }
   }
 }
