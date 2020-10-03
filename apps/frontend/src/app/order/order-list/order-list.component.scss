@@ -1,0 +1,40 @@
+:host {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card {
+  margin-bottom: 16px;
+}
+
+.order-card {
+
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .description {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    &__title {
+      margin-left: 5px;
+    }
+  }
+
+}
+
+.order-create-link {
+  margin-bottom: 16px;
+}

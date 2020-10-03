@@ -1,0 +1,39 @@
+<div class="container">
+  <h1 class="mat-h1 header">Ваши заявки</h1>
+</div>
+<a mat-raised-button
+    color="accent"
+    routerLink="/order/create"
+    class="order-create-link">Создать новую заявку</a>
+
+<ng-container *ngIf="(orders$ | async) as orders">
+  <mat-card class="order-card"
+            *ngFor="let order of orders; let index = index; trackBy: trackByFn">
+    <mat-card-content>
+      <div class="order-card__header">
+        <span>
+        {{order.positions.length | i18nPlural
+            : {
+                zero: "",
+                one: "# позиция",
+                few: "# позиции",
+                many: "# позиций",
+                other: "# позиций"
+            } }}
+        </span>
+        <span class="{{order.status | orderStatusColor }}">
+          {{ order.status | orderStatusText }}
+        </span>
+      </div>
+      <div class="description mat-body color-gray">
+        <div class="description__item">
+          <mat-icon class="gray">store</mat-icon> <span class="description__title">{{order?.shop?.name || 'Любой'}}</span>
+        </div>
+        <div class="description__item" *ngIf="order.deliveryTo">
+          <mat-icon class="gray">place</mat-icon> <span class="description__title">{{order?.deliveryTo || ''}}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</ng-container>
