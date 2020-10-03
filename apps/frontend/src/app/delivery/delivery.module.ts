@@ -5,10 +5,10 @@ import { RouterModule } from '@angular/router';
 import { CreateDeliveryComponent } from './create-delivery/create-delivery.component';
 import { SharedModule } from '../shared/shared.module';
 import { OrderCheckListComponent } from './order-check-list/order-check-list.component';
-import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { OrderDetailContainerComponent } from './order-detail-container/order-detail-container.component';
 
 @NgModule({
-  declarations: [DeliveryComponent, CreateDeliveryComponent, OrderDetailComponent, OrderCheckListComponent],
+  declarations: [DeliveryComponent, CreateDeliveryComponent, OrderCheckListComponent, OrderDetailContainerComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -22,7 +22,7 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
           },
           {
             path: 'detail/:id',
-            component: OrderDetailComponent
+            component: OrderDetailContainerComponent
           },
           {
             path: 'order-check-list/:id',

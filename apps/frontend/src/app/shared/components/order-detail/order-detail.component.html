@@ -1,1 +1,43 @@
-<p>order-detail works!</p>
+<mat-card class="order-card mat-elevation-z5hh">
+  <mat-card-content>
+    <div class="order-header">
+      <div class="order-title">
+        <div class="order-rating">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">star</mat-icon>
+          <span class="mat-subheader">{{order?.user?.customerRating || 'Не определен'}}</span>
+        </div>
+        <div class="order-owner-telegram">
+
+        </div>
+      </div>
+      <div class="order-owner">
+        <span class="mat-body-2">{{order?.user?.name}}</span>
+      </div>
+    </div>
+    <div class="oder-details">
+      <div *ngIf="order?.shop?.name"><span class="mat-body-1">Магазин: </span><span class="mat-body-2">{{order?.shop?.name}}</span></div>
+      <div><span class="mat-body-1">Место доставки: </span><span class="mat-body-2">{{order?.deliveryTo}}</span></div>
+      <div><span class="mat-body-1">Вознагражение за доставку: </span><span class="mat-body-2">{{order?.deliverymanBenefit}} ₽</span></div>
+    </div>
+
+    <div class="product-summary">
+      <span class="mat-subheader">Позиции</span>
+      <span class="product-count mat-subheader">{{order?.positions?.length | i18nPlural:productPlural}}</span>
+    </div>
+
+    <mat-list>
+      <mat-list-item *ngFor="let item of order?.positions">
+        <div><span class="mat-body-1">{{item.title}}</span></div>
+        <div><span class="mat-caption">до {{item.maxCost}} ₽</span></div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <a routerLink="/delivery/create" mat-stroked-button mat-button>Назад</a>
+    <button *ngIf="order?.deliveryMan?.id === null || order?.deliveryMan?.id !== (currentUser$ | async)?.id; else cancelOrderTmpl" mat-raised-button color="accent">Взять заказ в доставку</button>
+    <ng-template #cancelOrderTmpl>
+      <button mat-raised-button color="warn">Отказаться от заказа</button>
+    </ng-template>
+
+  </mat-card-actions>
+</mat-card>

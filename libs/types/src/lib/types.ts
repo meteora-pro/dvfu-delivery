@@ -9,7 +9,7 @@ export interface User {
   telegram: string;
   avatar?: string;
   readonly customerRating?: number; // рейтинг от 1 до 5 как скользящее средние от 10 последних выполненных (получение) заказов
-  readonly deliveryManRating?: number; // рейтинг от 1 до 5 как скользящее средние от 10 последних выполненных (доставка заказов
+  readonly deliveryManRating?: number; // рейтинг от 1 до 5 как скользящее средние от 10 последних выполненных (доставка) заказов
 }
 
 export enum OrderStatus {
@@ -35,7 +35,7 @@ export interface Order {
   expiredAt: Date;
   deliveryTo: string;
   status: OrderStatus;
-  readonly totalMaxCost: number; // вычисляется из positions
+  totalMaxCost: number; // вычисляется из positions
   finalCost?: number;
   deliverymanBenefit?: number; // не меньше 100 рублей + 3%
   customerVote?: Vote;
@@ -78,4 +78,10 @@ export interface Shop {
   description: string;
 }
 
+
+export interface LinkDeliveryBody {
+  userId: number;
+  deliveryId: number | null;
+  orderId: number;
+}
 // Сделать вычисление рейтинга
