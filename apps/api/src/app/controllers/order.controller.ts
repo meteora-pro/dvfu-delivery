@@ -16,7 +16,7 @@ import { OrderService } from '../services/order.service';
     join: {
       user: {
         eager: true,
-        allow: [ 'id', 'name', 'telegram' ],
+        allow: [ 'id' ],
       }
     }
   }
