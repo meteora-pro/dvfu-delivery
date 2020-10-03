@@ -53,7 +53,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
   }
 
   editAdditionalMarkup({ costOfDelivery, additionalMarkup}: OrderAppraisal) {
-    console.log('[additionalMarkup]', costOfDelivery, additionalMarkup)
     this.bottomSheet.open(ModalAdditionalMarkupComponent, {
       data: {
         minCostOfDelivery: costOfDelivery - (additionalMarkup || 0)
