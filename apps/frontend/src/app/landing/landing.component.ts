@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { LayoutSelectors } from '../core/store/layout/layout.selectors';
 
 @Component({
   selector: 'dvfu-delivery-landing',
@@ -8,6 +11,9 @@ import { Component, OnInit } from '@angular/core';
 export class LandingComponent implements OnInit {
 
   constructor() { }
+
+  @Select(LayoutSelectors.isMobile)
+  public isMobile$: Observable<boolean>;
 
   ngOnInit(): void {
   }

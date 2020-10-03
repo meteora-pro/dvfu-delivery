@@ -12,3 +12,16 @@
 .mobile-offset {
   margin-bottom: 54px;
 }
+
+.wrapper {
+  max-width: 450px;
+  margin: auto;
+}
+
+.fixed-sidenav {
+  ::ng-deep .mat-list-item-content {
+    display: flex;
+    justify-content: space-between;
+    min-width: 175px;
+  }
+}

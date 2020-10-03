@@ -1,11 +1,6 @@
 <div class="container">
   <div class="logo">
-    <img class="landing-img" src="assets/icons/icon-384x384.png" />
-  </div>
-
-  <div class="buttons">
-    <button mat-raised-button color="primary" [routerLink]="['/order/create']">Я хочу заказать</button>
-    <button mat-raised-button color="primary" [routerLink]="['/delivery/create']">Я хочу доставить</button>
+    <img class="landing-img" src="assets/icons/landing-logo.svg" />
   </div>
 
   <div class="title">
@@ -28,5 +23,10 @@
       Если хочешь заработать, то можешь взять заявку, собрать товары в магазине
       и привезти своему товарищу.
     </p>
+  </div>
+
+  <div *ngIf="!(isMobile$ | async)" class="buttons">
+    <button mat-raised-button color="primary" [routerLink]="['/order/create']">Я хочу заказать</button>
+    <button mat-raised-button color="primary" [routerLink]="['/delivery/create']">Я хочу доставить</button>
   </div>
 </div>
