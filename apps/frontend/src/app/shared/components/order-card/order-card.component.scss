@@ -8,17 +8,22 @@
   }
 
   .description {
-    &__store {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    &__item {
       display: flex;
       align-items: center;
+    }
+    &__title {
+      margin-left: 5px;
     }
   }
 
 
 
-  &__store-name {
-    margin-left: 5px;
-  }
+
 
   &__actions {
     display: flex;

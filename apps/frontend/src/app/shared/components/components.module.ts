@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 const sharedComponents = [
   OrderCardComponent
@@ -15,7 +16,8 @@ const sharedComponents = [
     MatCardModule,
     MatButtonModule,
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule
   ],
   exports: [...sharedComponents]
 })
