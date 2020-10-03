@@ -45,7 +45,9 @@
         {{ tmplVars.appraisal?.costOfDelivery }} ₽
         </span>
         </div>
-        <span class="color-accent">Увеличьте вознаграждение за доставку, чтобы ваш заказ доставили быстрее</span>
+        <span class="color-accent" (click)="editAdditionalMarkup(tmplVars.appraisal)">
+          Увеличьте вознаграждение за доставку, чтобы ваш заказ доставили быстрее
+        </span>
         <mat-divider></mat-divider>
         <div class="appraisal-item">
         <span class="appraisal-item__label">

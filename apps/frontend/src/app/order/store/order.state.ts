@@ -1,5 +1,5 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { CreateOrder, RecalculateOrderAppraisal } from './order.actions';
+import { ChangeMinCostOfDelivery, CreateOrder, RecalculateOrderAppraisal } from './order.actions';
 import { Injectable } from '@angular/core';
 import { OrderService } from '../../core/api/order.service';
 import { OrderPosition, Shop } from '@dvfu-delivery/types';
@@ -45,7 +45,7 @@ export class OrderState {
   }
 
   @Action(CreateOrder)
-  public createOrder(ctx: Ctx) {
+  createOrder(ctx: Ctx) {
     const { data } = ctx.getState();
     this.orderService.createOrder({
       shop: { id: data.shopId } as Shop,
@@ -57,10 +57,10 @@ export class OrderState {
   }
 
   @Action(RecalculateOrderAppraisal)
-  public recalculateOrderAppraisal(ctx: Ctx) {
+  recalculateOrderAppraisal(ctx: Ctx) {
     const { data, appraisal } = ctx.getState();
     const totalOrderCost = data.orderPositionList.reduce((a, b) => a + b.maxCost, 0);
-    const costOfDelivery = Math.round(totalOrderCost * 0.03) + appraisal.minMarkup;
+    const costOfDelivery = Math.round(totalOrderCost * 0.03) + appraisal.minMarkup + (appraisal.additionalMarkup || 0);
     ctx.patchState({
       appraisal: {
         ...appraisal,
@@ -69,6 +69,18 @@ export class OrderState {
         finalCost: totalOrderCost + costOfDelivery
       }
     });
+  }
+
+  @Action(ChangeMinCostOfDelivery)
+  changeMinCostOfDelivery(ctx: Ctx, { minCostOfDelivery }: ChangeMinCostOfDelivery) {
+    const { appraisal } = ctx.getState();
+    ctx.patchState({
+      appraisal: {
+        ...appraisal,
+        additionalMarkup: minCostOfDelivery - appraisal.costOfDelivery
+      }
+    });
+    return ctx.dispatch(new RecalculateOrderAppraisal());
   }
 }
 

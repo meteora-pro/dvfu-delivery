@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ModalOrderPositionFormComponent } from './modal-order-position-form/modal-order-position-form.component';
 import { FormPluginModule } from '../../modules/form-plugin/form-plugin.module';
 import { MatDividerModule } from '@angular/material/divider';
+import { ModalAdditionalMarkupComponent } from './modal-additional-markup/modal-additional-markup.component';
 
 @NgModule({
   imports: [
@@ -51,7 +52,12 @@ import { MatDividerModule } from '@angular/material/divider';
     MatDividerModule,
   ],
   declarations: [
-    OrderComponent, CreateOrderComponent, OrderPositionListFormComponent, ModalOrderPositionFormComponent],
+    OrderComponent,
+    CreateOrderComponent,
+    OrderPositionListFormComponent,
+    ModalOrderPositionFormComponent,
+    ModalAdditionalMarkupComponent
+  ],
 })
 export class OrderModule {
 }
