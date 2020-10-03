@@ -39,26 +39,26 @@
             <button mat-icon-button color="primary">
               <mat-icon>local_grocery_store</mat-icon>
             </button>
-            <a matLine [routerLink]="['/order/create']">Новый заказ</a>
+            <a matLine [routerLink]="['/order/create']">Заказать</a>
           </mat-list-item>
-          <mat-list-item>
-            <button mat-icon-button color="primary">
-              <mat-icon>view_list</mat-icon>
-            </button>
-            <a matLine [routerLink]="['/order/list']">Мои заказы</a>
-          </mat-list-item>
+<!--          <mat-list-item>-->
+<!--            <button mat-icon-button color="primary">-->
+<!--              <mat-icon>view_list</mat-icon>-->
+<!--            </button>-->
+<!--            <a matLine [routerLink]="['/order/list']">Мои заказы</a>-->
+<!--          </mat-list-item>-->
           <mat-list-item>
             <button mat-icon-button color="primary">
               <mat-icon>work</mat-icon>
             </button>
-            <a matLine [routerLink]="['/delivery/create']">Выполнить доставку</a>
+            <a matLine [routerLink]="['/delivery/create']">Доставить</a>
           </mat-list-item>
-          <mat-list-item>
-            <button mat-icon-button color="primary">
-              <mat-icon>wysiwyg</mat-icon>
-            </button>
-            <a matLine [routerLink]="['/delivery/list']">Мои доставки</a>
-          </mat-list-item>
+<!--          <mat-list-item>-->
+<!--            <button mat-icon-button color="primary">-->
+<!--              <mat-icon>wysiwyg</mat-icon>-->
+<!--            </button>-->
+<!--            <a matLine [routerLink]="['/delivery/list']">Мои доставки</a>-->
+<!--          </mat-list-item>-->
           <mat-list-item>
             <button mat-icon-button color="primary">
               <mat-icon>account_circle</mat-icon>
@@ -70,7 +70,7 @@
       </mat-sidenav>
 
 
-      <mat-sidenav-content>
+      <mat-sidenav-content [class.mobile-offset]="tmplVariables.isMobile">
         <router-outlet></router-outlet>
         <bottom-navbar *ngIf="tmplVariables.isMobile" class="bottom-navbar"></bottom-navbar>
       </mat-sidenav-content>

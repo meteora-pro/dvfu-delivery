@@ -1,1 +1,33 @@
-<p>sign-in works!</p>
+<div class="sign sign--container">
+  <mat-card class="card" [class.mat-elevation-z0]="isMobile$ | async">
+
+    <mat-card-header class="card--header">
+      <mat-card-title class="card--title">Привет, Товарищ!</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card--point">
+        <mat-form-field class="card--field" appearance="outline">
+          <mat-label>Логин, E-mail или телефон</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+      <div class="card--point">
+        <mat-form-field class="card--field" appearance="outline">
+          <mat-label>Пароль</mat-label>
+          <input matInput placeholder="Введите ваш пароль">
+        </mat-form-field>
+      </div>
+      <div class="card--buttons" routerLink="/">
+        <button style="width: 100%" class="button" mat-raised-button color="primary">Войти</button>
+      </div>
+
+      <div class="card--buttons">
+        <button class="button" mat-button>Забыли пароль?</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+
+
