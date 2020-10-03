@@ -1,0 +1,6 @@
+<mat-selection-list>
+  <mat-list-option *ngFor="let item of orderPositionList">
+    <div mat-line>{{ item.title }}</div>
+    <div mat-line> {{ item.maxCost | number }} ₽ </div>
+  </mat-list-option>
+</mat-selection-list>

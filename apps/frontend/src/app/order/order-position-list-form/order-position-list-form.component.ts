@@ -27,9 +27,6 @@ export class OrderPositionListFormComponent implements ControlValueAccessor {
 
   items: OrderPosition[] = [];
 
-  values: number[];
-  controls: any[] = [];
-
   private onChange: Function;
   private onTouched: Function;
 

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { OrderPosition, Shop } from '@dvfu-delivery/types';
+import { Store } from '@ngxs/store';
+import { CreateOrder } from '../store/order.actions';
 
 @Component({
   selector: 'dvfu-delivery-create-order',
@@ -9,7 +11,7 @@ import { OrderPosition, Shop } from '@dvfu-delivery/types';
 })
 export class CreateOrderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   orderPositionList: OrderPosition[] = [{
     title: null,
@@ -31,5 +33,9 @@ export class CreateOrderComponent implements OnInit {
   }];
 
   ngOnInit(): void {
+  }
+
+  handleCreateOrder() {
+    this.store.dispatch(new CreateOrder(this.orderPositionList, this.shop));
   }
 }

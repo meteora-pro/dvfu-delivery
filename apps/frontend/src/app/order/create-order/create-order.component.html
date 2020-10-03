@@ -12,5 +12,5 @@
 <div>
   <order-position-list-form [(ngModel)]="orderPositionList"></order-position-list-form>
 </div>
-
+<button (click)="handleCreateOrder()">Создать</button>
 <pre>{{ orderPositionList | json }}</pre>

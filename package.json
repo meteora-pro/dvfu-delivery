@@ -70,6 +70,7 @@
     "@angular/language-service": "^10.0.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
+    "@ngxs/schematics": "0.0.1-alpha.5",
     "@nrwl/jest": "10.2.1",
     "@nrwl/nest": "10.2.1",
     "@nrwl/node": "10.2.1",

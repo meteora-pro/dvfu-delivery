@@ -11,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { OrderPositionListFormComponent } from './order-position-list-form/order-position-list-form.component';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxsModule } from '@ngxs/store';
+import { OrderState } from './store/order.state';
 
 @NgModule({
   imports: [
@@ -29,6 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     FormsModule,
     MatSelectModule,
+    NgxsModule.forFeature([OrderState])
   ],
   declarations: [OrderComponent, CreateOrderComponent, OrderPositionListFormComponent],
 })
