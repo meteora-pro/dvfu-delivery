@@ -6,9 +6,10 @@ import { MaterialModule } from '../material/material.module';
 import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { EmptyLayoutComponent } from './empty-layout/empty-layout.component';
 import { BottomNavbarComponent } from './bottom-navbar/bottom-navbar.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
-    declarations: [EmptyLayoutComponent, BaseLayoutComponent, BottomNavbarComponent],
+    declarations: [EmptyLayoutComponent, BaseLayoutComponent, BottomNavbarComponent, NotificationsComponent],
     imports: [CommonModule, MaterialModule, RouterModule, NgLetModule],
     exports: [EmptyLayoutComponent, BaseLayoutComponent],
 })

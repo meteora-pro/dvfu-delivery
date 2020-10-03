@@ -21,6 +21,8 @@ import {
   tap,
 } from 'rxjs/operators';
 import { LayoutSelectors } from '../../../core/store/layout/layout.selectors';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { NotificationsComponent } from '../notifications/notifications.component';
 
 @Component({
   selector: 'app-base-layout',
@@ -31,7 +33,8 @@ import { LayoutSelectors } from '../../../core/store/layout/layout.selectors';
 export class BaseLayoutComponent implements AfterViewInit, OnDestroy {
   constructor(
     private store: Store,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private bottomSheet: MatBottomSheet
   ) {}
 
   @ViewChild(MatSidenavContent) public matSidenavContent: MatSidenavContent;
@@ -81,5 +84,9 @@ export class BaseLayoutComponent implements AfterViewInit, OnDestroy {
     return merge(windowScroll$, sidenavContentScroll$).pipe(
       map((offset) => Math.round(offset))
     );
+  }
+
+  public openNotifications() {
+    this.bottomSheet.open(NotificationsComponent)
   }
 }
