@@ -1,14 +1,16 @@
 <mat-form-field appearance="outline">
   <mat-label>Наименование товара</mat-label>
   <input matInput
+         required
          [(ngModel)]="orderPosition.title"
          [ngModelOptions]="{standalone: true}">
 </mat-form-field>
 <mat-form-field appearance="outline">
-  <mat-label>Цена до</mat-label>
+  <mat-label>Максимальная цена</mat-label>
   <input matInput
          [(ngModel)]="orderPosition.maxCost"
          [ngModelOptions]="{standalone: true}"
+         required
          type="number">
   <span matSuffix>₽</span>
 </mat-form-field>
@@ -22,6 +24,7 @@
   <button mat-raised-button
           color="accent"
           aria-label="Save"
+          [disabled]="!orderPosition.title || !orderPosition.maxCost"
           (click)="handleSave()">
     Сохранить
   </button>

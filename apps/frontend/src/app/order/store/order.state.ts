@@ -1,30 +1,21 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { CreateOrder } from './order.actions';
+import { CreateOrder, RecalculateOrderAppraisal } from './order.actions';
 import { Injectable } from '@angular/core';
 import { OrderService } from '../../core/api/order.service';
 import { OrderPosition, Shop } from '@dvfu-delivery/types';
-
-export interface OrderStateModel {
-  items: string[];
-  data: {
-    deliveryTo: string,
-    shopId: number,
-    expiredTime: number,
-    orderPositionList: OrderPosition[],
-  },
-}
+import { OrderAppraisal, OrderStateModel } from './order.model';
+import { defaultOrderPositionsData } from '../mock/order-data.mock';
 
 type Ctx = StateContext<OrderStateModel>;
 
 @State<OrderStateModel>({
   name: 'order',
   defaults: {
-    items: [],
-    data: {
-      deliveryTo: 'Кампус ДВФУ',
-      shopId: 1,
-      expiredTime: 15,
-      orderPositionList: [],
+    data: defaultOrderPositionsData,
+    appraisal: {
+      minMarkup: 100,
+      percent: 3,
+      additionalMarkup: 0,
     }
   }
 })
@@ -40,20 +31,43 @@ export class OrderState {
     if (!Array.isArray(list)) {
       return false;
     }
-    console.log('[list]', list)
     return !!list.length;
   }
 
-  @Action(CreateOrder)
-  public createOrder(ctx: Ctx ) {
-    const { data } = ctx.getState();
+  @Selector()
+  static orderPositionList(state: OrderStateModel): OrderPosition[] {
+    return state.data.orderPositionList || [];
+  }
 
+  @Selector()
+  static appraisal(state: OrderStateModel): OrderAppraisal {
+    return state.appraisal;
+  }
+
+  @Action(CreateOrder)
+  public createOrder(ctx: Ctx) {
+    const { data } = ctx.getState();
     this.orderService.createOrder({
       shop: { id: data.shopId } as Shop,
       positions: data.orderPositionList,
       expiredAt: new Date(Date.now() + minutesToMilliseconds(data.expiredTime)),
       deliveryTo: data.deliveryTo
     }).subscribe(() => {
+    });
+  }
+
+  @Action(RecalculateOrderAppraisal)
+  public recalculateOrderAppraisal(ctx: Ctx) {
+    const { data, appraisal } = ctx.getState();
+    const totalOrderCost = data.orderPositionList.reduce((a, b) => a + b.maxCost, 0);
+    const costOfDelivery = Math.round(totalOrderCost * 0.03) + appraisal.minMarkup;
+    ctx.patchState({
+      appraisal: {
+        ...appraisal,
+        orderPositionsCost: totalOrderCost,
+        costOfDelivery,
+        finalCost: totalOrderCost + costOfDelivery
+      }
     });
   }
 }

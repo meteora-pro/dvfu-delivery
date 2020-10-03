@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Shop } from '@dvfu-delivery/types';
 import { Select, Store } from '@ngxs/store';
-import { CreateOrder } from '../store/order.actions';
+import { CreateOrder, RecalculateOrderAppraisal } from '../store/order.actions';
 import { FormControl, FormGroup } from '@angular/forms';
 import { shopListMock } from '../mock/order-data.mock';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OrderState } from '../store/order.state';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { OrderAppraisal } from '../store/order.model';
+import { delay, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'dvfu-delivery-create-order',
@@ -14,7 +16,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./create-order.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateOrderComponent {
+export class CreateOrderComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store,
               private snackBar: MatSnackBar) {
@@ -32,6 +34,11 @@ export class CreateOrderComponent {
   @Select(OrderState.isEmptyOrderPosition)
   isEmptyOrderPosition$: Observable<boolean>;
 
+  @Select(OrderState.appraisal)
+  orderAppraisal$: Observable<OrderAppraisal>;
+
+  private destroy$ = new Subject<void>();
+
   handleCreateOrder() {
     if (this.formGroup.invalid) {
       this.snackBar.open('Не все поля заполнены корректно', 'OK', {
@@ -40,5 +47,23 @@ export class CreateOrderComponent {
       return;
     }
     this.store.dispatch(new CreateOrder());
+  }
+
+  ngOnInit(): void {
+    this.initAppraisalObserver();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private initAppraisalObserver() {
+    this.store.select(OrderState.orderPositionList).pipe(
+      delay(0),
+      takeUntil(this.destroy$),
+    ).subscribe(() => {
+      this.store.dispatch(new RecalculateOrderAppraisal());
+    });
   }
 }

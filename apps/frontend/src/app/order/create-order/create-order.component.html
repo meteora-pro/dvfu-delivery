@@ -21,9 +21,51 @@
   <h2 class="mat-h2 header">Что доставить?</h2>
   <order-position-list-form formControlName="orderPositionList"></order-position-list-form>
   <br>
-  <button *ngIf="isEmptyOrderPosition$ | async"
-          mat-raised-button
-          color="accent"
-          (click)="handleCreateOrder()">Создать заказ</button>
+  <ng-container *ngIf="{
+      isEmptyOrderPosition: isEmptyOrderPosition$ | async,
+      appraisal: orderAppraisal$ | async
+  } as tmplVars">
+    <ng-container *ngIf="tmplVars.isEmptyOrderPosition">
+      <div class="appraisal-block">
+        <div class="appraisal-item">
+        <span class="appraisal-item__label">
+          Стоимость товаров
+        </span>
+          <span class="appraisal-item__dotted"></span>
+          <span class="appraisal-item__value">
+        {{ tmplVars.appraisal?.orderPositionsCost }} ₽
+        </span>
+        </div>
+        <div class="appraisal-item">
+        <span class="appraisal-item__label">
+          Доставка
+        </span>
+          <span class="appraisal-item__dotted"></span>
+          <span class="appraisal-item__value">
+        {{ tmplVars.appraisal?.costOfDelivery }} ₽
+        </span>
+        </div>
+        <span class="color-accent">Увеличьте вознаграждение за доставку, чтобы ваш заказ доставили быстрее</span>
+        <mat-divider></mat-divider>
+        <div class="appraisal-item">
+        <span class="appraisal-item__label">
+          Итого
+        </span>
+          <span class="appraisal-item__dotted"></span>
+          <span class="appraisal-item__value total">
+        {{ tmplVars.appraisal?.finalCost }} ₽
+        </span>
+        </div>
+      </div>
+
+      <br>
+      <button mat-raised-button
+              color="accent"
+              (click)="handleCreateOrder()">Создать заказ</button>
+
+    </ng-container>
+
+  </ng-container>
+
 </form>
 

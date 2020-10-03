@@ -47,4 +47,7 @@
   .mat-form-field-appearance-outline .mat-form-field-infix {
     //padding: 6px 0 12px 0;
   }
+  .mat-stroked-button.mat-accent:not(.mat-button-disabled) {
+    border-color: mat-color($mat-blue, A200);
+  }
 }
