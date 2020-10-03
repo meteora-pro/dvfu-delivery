@@ -1,15 +1,16 @@
 <div class="container">
   <h1 class="mat-h1 header">Создание заказа</h1>
 </div>
-<form [formGroup]="formGroup">
-  <mat-form-field>
+<form [formGroup]="formGroup"
+      formState="order.data">
+  <mat-form-field appearance="outline">
     <mat-label>Место доставки</mat-label>
     <input matInput
            formControlName="deliveryTo"
            required>
   </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Магаз</mat-label>
+  <mat-form-field appearance="outline">
+    <mat-label>Магазин</mat-label>
     <mat-select formControlName="shopId">
       <mat-option *ngFor="let item of shopList" [value]="item.id">
         {{ item.name }}
@@ -20,7 +21,8 @@
   <h2 class="mat-h2 header">Что доставить?</h2>
   <order-position-list-form formControlName="orderPositionList"></order-position-list-form>
   <br>
-  <button mat-raised-button
+  <button *ngIf="isEmptyOrderPosition$ | async"
+          mat-raised-button
           color="accent"
           (click)="handleCreateOrder()">Создать заказ</button>
 </form>
