@@ -5,6 +5,7 @@
       <mat-label>Наименование</mat-label>
       <input matInput
              [(ngModel)]="item.title"
+             (ngModelChange)="handleChange()"
              [ngModelOptions]="{standalone: true}"
              required>
     </mat-form-field>
@@ -12,6 +13,7 @@
       <mat-label>Стоимость</mat-label>
       <input matInput
              [(ngModel)]="item.maxCost"
+             (ngModelChange)="handleChange()"
              [ngModelOptions]="{standalone: true}"
              type="number"
              required>
