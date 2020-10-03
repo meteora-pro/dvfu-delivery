@@ -48,7 +48,7 @@ export class AppConfig {
       name: 'default'
     };
 
-    Logger.verbose(`CONNECT TO ${connection.name} db: ${connection.database} ${inspect(dbConnection)}`);
+    Logger.verbose(`CONNECT TO ${connection.name} db: ${connection.database} ${inspect(dbConnection)} ${process.env.NODE_ENV}`);
     return dbConnection;
   }
 }
