@@ -7,6 +7,8 @@ import {
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 
 import { OrderPosition } from '@dvfu-delivery/types';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ModalOrderPositionFormComponent } from '../modal-order-position-form/modal-order-position-form.component';
 
 @Component({
   selector: 'order-position-list-form',
@@ -28,7 +30,8 @@ import { OrderPosition } from '@dvfu-delivery/types';
 })
 export class OrderPositionListFormComponent implements ControlValueAccessor, Validator {
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef,
+              private bottomSheet: MatBottomSheet) {}
 
   items: OrderPosition[] = [];
 
@@ -53,11 +56,18 @@ export class OrderPositionListFormComponent implements ControlValueAccessor, Val
   }
 
   add() {
-    this.items = [...this.items, {
-      title: null,
-      maxCost: null,
-    }];
-    this.emitEvent();
+    this.bottomSheet.open(ModalOrderPositionFormComponent, {
+      data: { orderPosition: {
+          title: null,
+          maxCost: null,
+        }, isNew: true },
+    }).afterDismissed().subscribe((result) => {
+      if (result) {
+        this.items = [result, ...this.items];
+        this.emitEvent();
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   removeByIndex(index) {
@@ -75,8 +85,21 @@ export class OrderPositionListFormComponent implements ControlValueAccessor, Val
     return null;
   }
 
-  handleChange() {
-    this.emitEvent();
+  edit(item: OrderPosition, index: number) {
+    this.bottomSheet.open(ModalOrderPositionFormComponent, {
+      data: { orderPosition: item, isNew: false },
+    }).afterDismissed().subscribe((result) => {
+      if (result) {
+        this.items = this.items.map((el, i) => {
+          if (i === index) {
+            return result;
+          }
+          return el;
+        });
+        this.emitEvent();
+        this.cdr.detectChanges();
+      }
+    });
   }
 }
 

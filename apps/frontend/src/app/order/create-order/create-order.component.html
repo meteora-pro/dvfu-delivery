@@ -3,7 +3,7 @@
 </div>
 <form [formGroup]="formGroup">
   <mat-form-field>
-    <mat-label>Адрес доставки</mat-label>
+    <mat-label>Место доставки</mat-label>
     <input matInput
            formControlName="deliveryTo"
            required>
@@ -17,21 +17,11 @@
     </mat-select>
   </mat-form-field>
 
-  <div>
-    <order-position-list-form formControlName="orderPositionList"></order-position-list-form>
-  </div>
-  <div>
-    <mat-form-field appearance="fill">
-      <mat-label>ExpiredTime</mat-label>
-      <mat-select formControlName="expiredTime">
-        <mat-option *ngFor="let item of expiredTimeList" [value]="item.minutes">
-          {{ item.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+  <h2 class="mat-h2 header">Что доставить?</h2>
+  <order-position-list-form formControlName="orderPositionList"></order-position-list-form>
+  <br>
   <button mat-raised-button
           color="accent"
-          (click)="handleCreateOrder()">Создать</button>
+          (click)="handleCreateOrder()">Создать заказ</button>
 </form>
 

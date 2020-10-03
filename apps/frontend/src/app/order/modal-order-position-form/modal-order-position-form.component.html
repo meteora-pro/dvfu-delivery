@@ -1,0 +1,28 @@
+<mat-form-field>
+  <mat-label>Наименование товара</mat-label>
+  <input matInput
+         [(ngModel)]="orderPosition.title"
+         [ngModelOptions]="{standalone: true}">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Цена до</mat-label>
+  <input matInput
+         [(ngModel)]="orderPosition.maxCost"
+         [ngModelOptions]="{standalone: true}"
+         type="number">
+  <span matSuffix>₽</span>
+</mat-form-field>
+<div class="modal-action">
+  <button mat-stroked-button
+          color="accent"
+          aria-label="Close"
+          (click)="handleClose()">
+    Назад
+  </button>
+  <button mat-raised-button
+          color="accent"
+          aria-label="Save"
+          (click)="handleSave()">
+    Сохранить
+  </button>
+</div>

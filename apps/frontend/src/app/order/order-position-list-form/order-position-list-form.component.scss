@@ -1,9 +1,13 @@
 form {
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
-
 .order-position__list-item {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.order-position__add-btn {
+  margin-bottom: 16px;
 }
