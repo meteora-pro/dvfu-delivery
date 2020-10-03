@@ -1,0 +1,16 @@
+<p>Создание заказа</p>
+
+<mat-form-field appearance="fill">
+  <mat-label>Магаз</mat-label>
+  <mat-select [(ngModel)]="shop">
+    <mat-option *ngFor="let item of shopList" [value]="item.id">
+      {{ item.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div>
+  <order-position-list-form [(ngModel)]="orderPositionList"></order-position-list-form>
+</div>
+<button (click)="handleCreateOrder()">Создать</button>
+<pre>{{ orderPositionList | json }}</pre>

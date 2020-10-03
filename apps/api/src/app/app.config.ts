@@ -19,6 +19,10 @@ export class AppConfig {
     private configService: ConfigService,
   ) {}
 
+  get appUrl(): string {
+    return this.configService.get('APP_URL', 'http://localhost:3333');
+  }
+
   get dbConnection(): TypeOrmModuleOptions {
     const connection = (ormConfig as unknown as ConnectionOptions[]).find(({ name }) => name === "default") as PostgresConnectionOptions;
 
@@ -41,6 +45,7 @@ export class AppConfig {
         OrderEntity,
         DeliveryEntity,
       ],
+      name: 'default'
     };
 
     Logger.verbose(`CONNECT TO ${connection.name} db: ${connection.database} ${inspect(dbConnection)}`);

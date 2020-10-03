@@ -1,14 +1,16 @@
 import { Controller } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController } from '@nestjsx/crud';
 import { UserEntity } from '../entities/user.entity';
 import { UserService } from '../services/user.service';
 
+@ApiTags('user')
 @Crud({
   model: {
     type: UserEntity,
   },
   routes: {
-    only: ['getOneBase'],
+    only: ['getOneBase', 'createOneBase'],
   },
 })
 @Controller("users")

@@ -1,8 +1,10 @@
 import { Controller } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController } from '@nestjsx/crud';
 import { OrderEntity } from '../entities/order.entity';
 import { OrderService } from '../services/order.service';
 
+@ApiTags('order')
 @Crud({
   model: {
     type: OrderEntity,

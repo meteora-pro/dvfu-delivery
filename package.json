@@ -47,6 +47,7 @@
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/swagger": "^4.6.1",
     "@nestjs/typeorm": "^7.1.4",
     "@nestjsx/crud": "^4.6.2",
     "@nestjsx/crud-typeorm": "^4.6.2",
@@ -60,6 +61,7 @@
     "pg": "^7.17.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.5",
+    "swagger-ui-express": "^4.1.4",
     "typeorm": "^0.2.22",
     "zone.js": "^0.10.2"
   },
@@ -70,6 +72,7 @@
     "@angular/language-service": "^10.0.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
+    "@ngxs/schematics": "0.0.1-alpha.5",
     "@nrwl/jest": "10.2.1",
     "@nrwl/nest": "10.2.1",
     "@nrwl/node": "10.2.1",

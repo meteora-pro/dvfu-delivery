@@ -1,8 +1,8 @@
 {
   "extends": "../../tslint.json",
   "rules": {
-    "directive-selector": [true, "attribute", "dvfuDelivery", "camelCase"],
-    "component-selector": [true, "element", "dvfu-delivery", "kebab-case"]
+    "directive-selector": [true, "attribute", "*", "camelCase"],
+    "component-selector": [true, "element", "*", "kebab-case"]
   },
   "linterOptions": {
     "exclude": ["!**/*"]
