@@ -22,4 +22,8 @@ export class OrderService {
   getMyOrders() {
     return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order`);
   }
+
+  getOrderById(id: number) {
+    return this.httpClient.get<Order>(`${environment.serverBaseUrl}/order/${id}`);
+  }
 }
