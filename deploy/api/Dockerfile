@@ -29,12 +29,10 @@ RUN mkdir -p /usr/api
 
 WORKDIR /usr/api
 COPY apps/api/package.json /usr/api
-COPY --from=builder /usr/src/app/ormconfig.js /usr/api
+COPY --from=builder /usr/src/app/ormconfig.js /usr
 COPY --from=builder /usr/src/app/config/api /usr/api/config/api
 COPY --from=builder /usr/src/app/dist/apps/api /usr/api/apps/api
 COPY --from=builder /usr/src/app/node_modules /usr/api/node_modules
 
-RUN ls /usr/api
-RUN pwd
 CMD ["node", "./apps/api/main.js"]
 EXPOSE 3333

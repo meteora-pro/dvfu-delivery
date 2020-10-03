@@ -21,12 +21,23 @@ spec:
       serviceAccountName: {{ include "api.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: "api-env-volume"
+          secret:
+            secretName: "hackaton-api-env-secret"
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: NODE_ENV
+              value: "production"
+          volumeMounts:
+            # name must match the volume name below
+            - name: "api-env-volume"
+              mountPath: "/usr/src/app/config/api"
           ports:
             - name: http
               containerPort: 3333
