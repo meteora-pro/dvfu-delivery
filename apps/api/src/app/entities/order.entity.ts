@@ -1,5 +1,6 @@
 import { Delivery, Order, OrderPosition, OrderStatus, User } from '@dvfu-delivery/types';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsArray, IsDateString, IsString } from 'class-validator';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { DeliveryEntity } from './delivery.entity';
 import { UserEntity } from './user.entity';
@@ -16,15 +17,18 @@ export class OrderEntity implements Omit<Order, 'totalMaxCost' | 'deliveryMan'> 
   @CreateDateColumn()
   createAt: Date;
 
-  @ApiProperty()
+  @IsString({ always: true })
+  @ApiProperty({ required: true })
   @Column()
   deliveryTo: string;
 
-  @ApiProperty()
+  @IsDateString({ always: true })
+  @ApiProperty({ required: true })
   @Column()
   expiredAt: Date;
 
-  @ApiProperty()
+  @IsArray({ always: true })
+  @ApiProperty({ required: true })
   @Column('jsonb')
   positions: OrderPosition[];
 
@@ -32,7 +36,7 @@ export class OrderEntity implements Omit<Order, 'totalMaxCost' | 'deliveryMan'> 
   @Column('enum', {enum: OrderStatus, default: OrderStatus.DRAFT})
   status: OrderStatus;
 
-  @ApiProperty()
+  @ApiProperty({ required: true })
   @ManyToOne(type => UserEntity)
   user: User;
 

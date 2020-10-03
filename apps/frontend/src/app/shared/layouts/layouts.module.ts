@@ -5,9 +5,10 @@ import { NgLetModule } from '../directives/ng-let.directive';
 import { MaterialModule } from '../material/material.module';
 import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { EmptyLayoutComponent } from './empty-layout/empty-layout.component';
+import { BottomNavbarComponent } from './bottom-navbar/bottom-navbar.component';
 
 @NgModule({
-    declarations: [EmptyLayoutComponent, BaseLayoutComponent],
+    declarations: [EmptyLayoutComponent, BaseLayoutComponent, BottomNavbarComponent],
     imports: [CommonModule, MaterialModule, RouterModule, NgLetModule],
     exports: [EmptyLayoutComponent, BaseLayoutComponent],
 })

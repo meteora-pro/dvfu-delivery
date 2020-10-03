@@ -6,7 +6,7 @@
 // For more information: https://material.angular.io/guide/theming
 @include mat-core();
 
-$style-cloud-primary: mat-palette($mat-blue-gray);
+$style-cloud-primary: mat-palette($mat-blue-gray, 900);
 $style-cloud-accent: mat-palette($mat-blue, A200, A100, A400);
 
 $style-cloud-warn: mat-palette($mat-red);
