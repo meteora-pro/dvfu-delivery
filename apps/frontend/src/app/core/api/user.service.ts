@@ -4,7 +4,7 @@ import { User } from '@dvfu-delivery/types';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-
+const LOCAL_STORAGE_USER_KEY = 'user_tovarish';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,7 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) {
     try {
-      const savedUser = localStorage.getItem('user');
+      const savedUser = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
       if (savedUser) {
         this.currentUser = JSON.parse(savedUser);
       }
@@ -31,7 +31,7 @@ export class UserService {
     return this.httpClient.post<User>(`${environment.serverBaseUrl}/user/me`, { userId }).pipe( tap(user => {
       this.currentUser = user;
       localStorage.setItem('id', user.id + '');
-      localStorage.setItem('id', JSON.stringify(user));
+      localStorage.setItem(LOCAL_STORAGE_USER_KEY, JSON.stringify(user));
     }));
   }
 }

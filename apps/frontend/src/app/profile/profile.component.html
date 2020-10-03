@@ -1,4 +1,4 @@
-<div class="main-wrapper">
+<div *ngIf="userService?.currentUser as user; else loaderTmpl" class="main-wrapper">
   <div class="content">
     <header>
       <h3>Профиль</h3>
@@ -16,7 +16,7 @@
       </div>
       <div class="contact-info">
         <mat-icon>send</mat-icon>
-        <span class="mat-body-1">anyakirova@dvfu.ru</span>
+        <span class="mat-body-1">@anyakirova</span>
       </div>
     </section>
     <section>
@@ -28,6 +28,12 @@
     </section>
     <p>вы отличный покупатель</p>
   </div>
-
-
 </div>
+
+<ng-template #loaderTmpl>
+  <div class="spinner-wrapper">
+    <div class="spinner-container">
+      <mat-spinner diameter="30"></mat-spinner>
+    </div>
+  </div>
+</ng-template>
