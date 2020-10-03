@@ -1,0 +1,34 @@
+<form class="order-position__list">
+  <div *ngFor="let item of items; let index = index"
+       class="order-position__list-item">
+    <mat-form-field>
+      <mat-label>Наименование</mat-label>
+      <input matInput
+             [(ngModel)]="item.title"
+             [ngModelOptions]="{standalone: true}"
+             required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Стоимость</mat-label>
+      <input matInput
+             [(ngModel)]="item.maxCost"
+             [ngModelOptions]="{standalone: true}"
+             type="number"
+             required>
+      <span matSuffix>₽</span>
+    </mat-form-field>
+    <button mat-icon-button color="warn"
+            aria-label="Clear"
+            (click)="removeByIndex(index)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <button mat-mini-fab
+          color="warn"
+          aria-label="Add position"
+          (click)="add()">
+    <mat-icon>add</mat-icon>
+  </button>
+</form>
+
+

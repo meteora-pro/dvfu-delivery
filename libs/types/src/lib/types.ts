@@ -50,7 +50,7 @@ export enum OrderPositionStatus {
 export interface OrderPosition {
   title: string; // До 255 символов
   maxCost: number; // От 10 до 2^32
-  status: OrderPositionStatus;
+  status?: OrderPositionStatus;
   declinedComment?: string;
 }
 
