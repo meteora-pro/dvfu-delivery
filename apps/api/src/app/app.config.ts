@@ -6,6 +6,8 @@ import { inspect } from 'util';
 import * as packageJson from '../../package.json';
 import * as ormConfig from '../../../../ormconfig.js';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { DeliveryEntity } from './entities/delivery.entity';
+import { OrderEntity } from './entities/order.entity';
 import { UserEntity } from './entities/user.entity';
 
 @Injectable()
@@ -36,6 +38,8 @@ export class AppConfig {
       // оверайдим entities из ormconfig.js для более быстрого запуска проекта
       entities: [
         UserEntity,
+        OrderEntity,
+        DeliveryEntity,
       ],
     };
 

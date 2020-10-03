@@ -37,7 +37,7 @@ spec:
           volumeMounts:
             # name must match the volume name below
             - name: "api-env-volume"
-              mountPath: "/usr/src/app/config/api"
+              mountPath: "/usr/api/config/api"
           ports:
             - name: http
               containerPort: 3333
