@@ -1,0 +1,38 @@
+.sign {
+  &--container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+}
+
+.card {
+  max-width: 300px;
+  width: 100%;
+  &--title,
+  &--subtitle {
+    text-align: center;
+  }
+
+  &--point {
+    text-align: center;
+  }
+
+  &--field {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  &--buttons {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    max-width: 300px;
+  }
+
+  .button {
+    margin: 10px;
+  }
+}
