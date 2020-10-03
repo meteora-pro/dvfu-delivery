@@ -14,23 +14,6 @@ form {
   flex-direction: column;
 }
 
-.order-position__list-item {
-  display: flex;
-  justify-content: space-between;
-}
-
-::ng-deep {
-  .order-position__info  {
-    .mat-card-title {
-      font-size: 16px;
-    }
-    .mat-card-subtitle {
-      font-size: 14px;
-      margin-bottom: 0;
-    }
-  }
-}
-
 .appraisal-block {
   mat-divider {
     margin: 16px 0;

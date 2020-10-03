@@ -5,3 +5,8 @@ export class CreateOrder {
 export class RecalculateOrderAppraisal {
   public static readonly type = '[Order] RecalculateOrderAppraisal';
 }
+
+export class ChangeMinCostOfDelivery {
+  public static readonly type = '[Order] ChangeMinCostOfDelivery';
+  constructor(public minCostOfDelivery: number) {}
+}

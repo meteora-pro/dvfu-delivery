@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.modal-action {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin-left: 16px;
+  }
+}

@@ -6,7 +6,6 @@ import { debounceTime, filter, takeUntil } from 'rxjs/operators';
 import { UpdateFormValue } from '../form-plugin.actions';
 
 /**
- * TODO Полная копипаста директивы из SPA-2. Удалить директиву когда будем объеденять проекты
  * Директива для синхронизации формы с ngxs
  */
 @Directive({

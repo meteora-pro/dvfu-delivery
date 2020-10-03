@@ -5,10 +5,22 @@ form {
 .order-position__list-item {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  align-items: center;
   margin-bottom: 16px;
+  padding: 12px;
 }
 
 .order-position__add-btn {
   margin-bottom: 16px;
+}
+
+.order-position__info  {
+  .mat-card-title {
+    font-size: 14px;
+    font-weight: normal;
+  }
+  .mat-card-subtitle {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
 }

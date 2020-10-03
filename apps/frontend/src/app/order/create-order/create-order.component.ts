@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Shop } from '@dvfu-delivery/types';
 import { Select, Store } from '@ngxs/store';
-import { CreateOrder, RecalculateOrderAppraisal } from '../store/order.actions';
+import { ChangeMinCostOfDelivery, CreateOrder, RecalculateOrderAppraisal } from '../store/order.actions';
 import { FormControl, FormGroup } from '@angular/forms';
 import { shopListMock } from '../mock/order-data.mock';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,6 +9,8 @@ import { OrderState } from '../store/order.state';
 import { Observable, Subject } from 'rxjs';
 import { OrderAppraisal } from '../store/order.model';
 import { delay, takeUntil } from 'rxjs/operators';
+import { ModalAdditionalMarkupComponent } from '../modal-additional-markup/modal-additional-markup.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'dvfu-delivery-create-order',
@@ -19,7 +21,8 @@ import { delay, takeUntil } from 'rxjs/operators';
 export class CreateOrderComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private bottomSheet: MatBottomSheet) {
   }
 
   formGroup = new FormGroup({
@@ -49,6 +52,18 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.store.dispatch(new CreateOrder());
   }
 
+  editAdditionalMarkup({ costOfDelivery, additionalMarkup}: OrderAppraisal) {
+    this.bottomSheet.open(ModalAdditionalMarkupComponent, {
+      data: {
+        minCostOfDelivery: costOfDelivery - (additionalMarkup || 0)
+      }
+    }).afterDismissed().subscribe((result) => {
+      if (result > costOfDelivery) {
+        this.store.dispatch(new ChangeMinCostOfDelivery(result));
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.initAppraisalObserver();
   }
@@ -66,4 +81,5 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       this.store.dispatch(new RecalculateOrderAppraisal());
     });
   }
+
 }

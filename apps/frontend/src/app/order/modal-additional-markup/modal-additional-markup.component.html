@@ -1,0 +1,30 @@
+<span>
+  Иногда заявок на доставку слишком много.
+  Увеличьте вознаграждение, чтобы ваш заказ приехал быстрее.
+</span>
+<br>
+<mat-form-field appearance="outline">
+  <mat-label>Доставка</mat-label>
+  <input matInput
+         [(ngModel)]="value"
+         [ngModelOptions]="{standalone: true}"
+         [placeholder]="'Не меннее ' + minCostOfDelivery"
+         type="number"
+          #inputCost>
+  <span matSuffix>₽</span>
+</mat-form-field>
+<div class="modal-action">
+  <button mat-stroked-button
+          color="accent"
+          aria-label="Close"
+          (click)="handleClose()">
+    Назад
+  </button>
+  <button mat-raised-button
+          color="accent"
+          aria-label="Save"
+          [disabled]="!value || value < minCostOfDelivery"
+          (click)="handleSave()">
+    Сохранить
+  </button>
+</div>
