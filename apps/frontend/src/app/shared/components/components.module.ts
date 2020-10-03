@@ -7,13 +7,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import {MatListModule} from '@angular/material/list';
+import { RatingComponent } from './rating/rating.component';
 const sharedComponents = [
   OrderCardComponent,
   OrderDetailComponent
 ];
 
 @NgModule({
-  declarations: [...sharedComponents],
+  declarations: [...sharedComponents, RatingComponent],
   imports: [
     MatCardModule,
     MatButtonModule,
@@ -22,6 +23,6 @@ const sharedComponents = [
     MatListModule,
     RouterModule
   ],
-  exports: [...sharedComponents]
+    exports: [ ...sharedComponents, RatingComponent ],
 })
 export class ComponentsModule {}

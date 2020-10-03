@@ -2,10 +2,7 @@
   <mat-card-content>
     <div class="order-header">
       <div class="order-title">
-        <div class="order-rating">
-          <mat-icon aria-hidden="false" aria-label="Example home icon">star</mat-icon>
-          <span class="mat-subheader">{{order?.user?.customerRating || 'Не определен'}}</span>
-        </div>
+        <rating [rating]="order?.user?.customerRating"></rating>
         <div class="order-owner-telegram">
 
         </div>
