@@ -70,7 +70,7 @@
       </mat-sidenav>
 
 
-      <mat-sidenav-content>
+      <mat-sidenav-content [class.mobile-offset]="tmplVariables.isMobile">
         <router-outlet></router-outlet>
         <bottom-navbar *ngIf="tmplVariables.isMobile" class="bottom-navbar"></bottom-navbar>
       </mat-sidenav-content>
