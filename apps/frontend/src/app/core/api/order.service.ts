@@ -24,7 +24,7 @@ export class OrderService {
   }
 
   getMyOrders() {
-    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order?filter=user.id||$eq||1`);
+    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order?filter=user.id||$eq||1&sort=id,DESC`);
   }
 
   getOrderById(id: number) {
@@ -37,7 +37,7 @@ export class OrderService {
   }
 
   getAvailableOrders() {
-    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order`).pipe(
+    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order?sort=id,DESC`).pipe(
       map( orders => orders
         .filter( order => order.positions.length > 0)
         .map( calculateOrderFields ).map( order => {
@@ -56,6 +56,6 @@ export class OrderService {
 
 function calculateOrderFields(order: Order): Order {
   order.totalMaxCost = order.positions.reduce((sum, position) => sum + position.maxCost, 0);
-  order.deliverymanBenefit = 100 + Math.floor(order.totalMaxCost * 0.03);
+  order.deliverymanBenefit = 100 + Math.round(order.totalMaxCost * 0.03);
   return order;
 }
