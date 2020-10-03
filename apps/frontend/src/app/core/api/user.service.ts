@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@dvfu-delivery/types';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 const LOCAL_STORAGE_USER_KEY = 'user_tovarish';
@@ -10,13 +10,13 @@ const LOCAL_STORAGE_USER_KEY = 'user_tovarish';
 })
 export class UserService {
 
-  currentUser?: User;
+  currentUser$ = new BehaviorSubject<User>(null);
 
   constructor(private httpClient: HttpClient) {
     try {
       const savedUser = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
       if (savedUser) {
-        this.currentUser = JSON.parse(savedUser);
+        this.currentUser$.next(JSON.parse(savedUser));
       }
     } catch ( e ) {
       console.error(e);
@@ -24,12 +24,12 @@ export class UserService {
   }
 
   getMe(): Observable<User> {
-    if (this.currentUser) {
-      return of(this.currentUser);
+    if (this.currentUser$) {
+      return of(this.currentUser$.value);
     }
     const userId = localStorage.getItem('id');
     return this.httpClient.post<User>(`${environment.serverBaseUrl}/users/me`, { userId }).pipe( tap(user => {
-      this.currentUser = user;
+      this.currentUser$.next( user);
       localStorage.setItem('id', user.id + '');
       localStorage.setItem(LOCAL_STORAGE_USER_KEY, JSON.stringify(user));
     }));

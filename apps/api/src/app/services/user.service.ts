@@ -12,13 +12,13 @@ export class UserService extends TypeOrmCrudService<UserEntity> {
   }
 
   public createMockUser(): Omit<User, 'id'> {
-    const randomSeed = Math.floor(Math.random() * 30000);
      return {
        customerRating: 4 + Math.random(),
        avatar: 'https://cdn.dev.meteora.pro/meteora-dev/Brl7bqld05E.png',
        deliveryManRating: 4 + Math.random(),
        email: 'anyakirova@dvfu.ru',
        telegram: '@anya_kirova',
+       description: 'студент 2-го курса ШЕН',
        name: 'Анна Кирова'
      };
   }

@@ -23,6 +23,10 @@ export class UserEntity implements User {
   name: string;
 
   @ApiProperty()
+  @Column({nullable: true})
+  description: string;
+
+  @ApiProperty()
   @Column()
   telegram: string;
 

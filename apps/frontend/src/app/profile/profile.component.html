@@ -1,29 +1,29 @@
-<div *ngIf="userService?.currentUser as user; else loaderTmpl" class="main-wrapper">
+<div *ngIf="(userService.currentUser$ | async) as user; else loaderTmpl" class="main-wrapper">
   <div class="content">
     <header>
       <h3>Профиль</h3>
       <section>
         <img alt="user avatar" class="mat-card-avatar" src="https://cdn.dev.meteora.pro/meteora-dev/Brl7bqld05E.png">
-        <span class="mat-title">Анна Кирова</span>
-        <span class="mat-body-1">студент 2-го курса ШЭН</span>
+        <span class="mat-title">{{user?.name}}</span>
+        <span class="mat-body-1">{{user?.description}}</span>
       </section>
     </header>
     <mat-divider></mat-divider>
     <section class="contacts">
       <div class="contact-info">
         <mat-icon>mail</mat-icon>
-        <span class="mat-body-1">anyakirova@dvfu.ru</span>
+        <span class="mat-body-1">{{user?.email}}</span>
       </div>
       <div class="contact-info">
         <mat-icon>send</mat-icon>
-        <span class="mat-body-1">@anyakirova</span>
+        <span class="mat-body-1">{{user?.telegram}}</span>
       </div>
     </section>
     <section>
       <span class="mat-subheader">Рейтинг</span>
       <div class="ratings">
-        <rating [rating]="4.1"></rating>
-        <rating [rating]="4.3"></rating>
+        <rating [rating]="user?.customerRating "></rating>
+        <rating [rating]="user?.deliveryManRating"></rating>
       </div>
     </section>
     <p>вы отличный покупатель</p>
