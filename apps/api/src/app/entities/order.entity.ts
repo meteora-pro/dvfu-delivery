@@ -1,4 +1,4 @@
-import { Order, OrderPosition, OrderStatus, User } from '@dvfu-delivery/types';
+import { Delivery, Order, OrderPosition, OrderStatus, User } from '@dvfu-delivery/types';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { DeliveryEntity } from './delivery.entity';
 import { UserEntity } from './user.entity';
@@ -22,12 +22,12 @@ export class OrderEntity implements Omit<Order, 'totalMaxCost' | 'deliveryMan'> 
   @Column('jsonb')
   positions: OrderPosition[];
 
-  @Column({enum: OrderStatus, default: OrderStatus.DRAFT})
+  @Column('enum', {enum: OrderStatus, default: OrderStatus.DRAFT})
   status: OrderStatus;
 
   @ManyToOne(type => UserEntity)
   user: User;
 
   @ManyToOne(type => DeliveryEntity, {nullable: true})
-  delivery?: DeliveryEntity;
+  delivery?: Delivery;
 }
