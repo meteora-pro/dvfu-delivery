@@ -6,20 +6,19 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { CoreModule } from './core/core.module';
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([{
-      path: 'delivery',
-      loadChildren:  () => import('./delivery/delivery.module').then(m => m.DeliveryModule),
-    }, {
-      path: 'order',
-      loadChildren:  () => import('./order/order.module').then(m => m.OrderModule),
-    }], { initialNavigation: 'enabled' }),
+    AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent],

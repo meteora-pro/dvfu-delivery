@@ -1,0 +1,87 @@
+<ng-container
+  *ngLet="{ isMobile: isMobile$ | async, isScrollDownDirection: isScrollDownDirection$ | async } as tmplVariables"
+>
+  <div class="layout-container" [class.layout-container--mobile]="tmplVariables.isMobile">
+    <mat-toolbar
+      color="primary"
+      class="toolbar"
+      [class.toolbar--mobile]="tmplVariables.isMobile"
+      [class.toolbar--hidden]="tmplVariables.isMobile && tmplVariables.isScrollDownDirection"
+    >
+      <button mat-icon-button (click)="navigationSideNav.toggle()">
+        <mat-icon>{{ navigationSideNav.opened ? 'menu_open' : 'menu' }}</mat-icon>
+      </button>
+      <h1 class="header" [routerLink]="['/']">Товарищи</h1>
+      <span class="toolbar--spacer"></span>
+      <button mat-icon-button (click)="notificationSideNav.toggle()">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Notifications">notifications</mat-icon>
+      </button>
+
+      <button mat-icon-button routerLink="/auth/sign-in">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Login">login</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-sidenav-container
+      class="sidenav sidenav__container"
+      [class.sidenav__container--mobile]="tmplVariables.isMobile"
+    >
+      <mat-sidenav
+        #navigationSideNav
+        [mode]="tmplVariables.isMobile ? 'over' : 'side'"
+        [fixedInViewport]="tmplVariables.isMobile"
+        [opened]="isLargeDesktop$ | async"
+        position="start"
+        fixedTopGap="56"
+      >
+        <mat-nav-list>
+          <mat-list-item>
+            <button mat-icon-button color="primary">
+              <mat-icon>local_grocery_store</mat-icon>
+            </button>
+            <a matLine [routerLink]="['/order/create']">Новый заказ</a>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-icon-button color="primary">
+              <mat-icon>view_list</mat-icon>
+            </button>
+            <a matLine [routerLink]="['/order/list']">Мои заказы</a>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-icon-button color="primary">
+              <mat-icon>work</mat-icon>
+            </button>
+            <a matLine [routerLink]="['/delivery/create']">Выполнить доставку</a>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-icon-button color="primary">
+              <mat-icon>wysiwyg</mat-icon>
+            </button>
+            <a matLine [routerLink]="['/delivery/list']">Мои доставки</a>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-icon-button color="primary">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <a matLine [routerLink]="['/user/profile']">Мой профиль</a>
+          </mat-list-item>
+        </mat-nav-list>
+
+      </mat-sidenav>
+
+      <mat-sidenav
+        #notificationSideNav
+        mode="over"
+        [fixedInViewport]="tmplVariables.isMobile"
+        fixedTopGap="56"
+        position="end"
+      >
+        End content
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</ng-container>

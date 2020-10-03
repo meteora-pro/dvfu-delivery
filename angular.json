@@ -14,7 +14,9 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -43,7 +45,10 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/api/**/*"
+            ]
           }
         },
         "test": {
@@ -79,7 +84,9 @@
               "apps/frontend/src/favicon.ico",
               "apps/frontend/src/assets"
             ],
-            "styles": ["apps/frontend/src/styles.scss"],
+            "styles": [
+              "apps/frontend/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -138,7 +145,10 @@
               "apps/frontend/tsconfig.app.json",
               "apps/frontend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/frontend/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/frontend/**/*"
+            ]
           }
         },
         "test": {
@@ -171,8 +181,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/frontend-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/frontend-e2e/**/*"]
+            "tsConfig": [
+              "apps/frontend-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/frontend-e2e/**/*"
+            ]
           }
         }
       }
@@ -190,7 +205,10 @@
               "libs/types/tsconfig.lib.json",
               "libs/types/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/types/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/types/**/*"
+            ]
           }
         },
         "test": {
@@ -204,7 +222,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/nest"
+    "defaultCollection": "@nrwl/nest",
+    "analytics": false
   },
   "schematics": {
     "@nrwl/workspace": {

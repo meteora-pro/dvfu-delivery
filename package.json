@@ -50,6 +50,10 @@
     "@nestjs/typeorm": "^7.1.4",
     "@nrwl/angular": "^10.2.1",
     "reflect-metadata": "^0.1.13",
+    "@ngxs/devtools-plugin": "^3.7.0",
+    "@ngxs/router-plugin": "^3.7.0",
+    "@ngxs/store": "^3.7.0",
+    "lodash-es": "^4.17.15",
     "rxjs": "~6.5.5",
     "typeorm": "^0.2.28",
     "zone.js": "^0.10.2"
