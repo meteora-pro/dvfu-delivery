@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { OrderPosition, Shop } from '@dvfu-delivery/types';
+import { Shop } from '@dvfu-delivery/types';
 import { Store } from '@ngxs/store';
 import { CreateOrder } from '../store/order.actions';
+import { FormControl, FormGroup } from '@angular/forms';
+import { expiredTimeList, shopListMock } from '../mock/order-data.mock';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'dvfu-delivery-create-order',
@@ -11,31 +14,36 @@ import { CreateOrder } from '../store/order.actions';
 })
 export class CreateOrderComponent implements OnInit {
 
-  constructor(private store: Store) { }
+  constructor(private store: Store,
+              private snackBar: MatSnackBar) { }
 
-  orderPositionList: OrderPosition[] = [{
-    title: null,
-    maxCost: null,
-  }];
+  formGroup = new FormGroup({
+    deliveryTo: new FormControl('Кампус ДВФУ'),
+    shopId: new FormControl(1),
+    expiredTime: new FormControl(15),
+    orderPositionList: new FormControl([{
+      title: null,
+      maxCost: null,
+    }])
+  });
 
-  shop: Shop;
+  shopList: Shop[] = shopListMock;
 
-  shopList: Shop[] = [{
-    id: 1,
-    name: 'Три березки',
-    address: 'Мегаполи Черниговка',
-    description: 'Норм магаз'
-  }, {
-    id: 2,
-    name: 'Три березки 12',
-    address: 'Мегаполи Черниговка 12',
-    description: 'Норм магаз 2'
-  }];
+  expiredTimeList = expiredTimeList;
 
   ngOnInit(): void {
   }
 
   handleCreateOrder() {
-    this.store.dispatch(new CreateOrder(this.orderPositionList, this.shop));
+    if (this.formGroup.invalid) {
+      this.snackBar.open('Не все поля заполнены корректно', 'OK', {
+        duration: 3000,
+      });
+      return;
+    }
+    const { orderPositionList, expiredTime, shopId, deliveryTo } = this.formGroup.value;
+    this.store.dispatch([
+      new CreateOrder(orderPositionList, shopId, expiredTime, deliveryTo)
+    ]);
   }
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Order } from '@dvfu-delivery/types';
 import { environment } from '../../../environments/environment';
 
-export interface OrderCreateDto extends Pick<Order, 'shop' | 'positions' | 'expiredAt'> {}
+export interface OrderCreateDto extends Pick<Order, 'shop' | 'positions' | 'expiredAt' | 'deliveryTo'> {}
 
 @Injectable({
   providedIn: 'root'

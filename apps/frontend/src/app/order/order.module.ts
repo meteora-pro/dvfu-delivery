@@ -19,12 +19,20 @@ import { OrderState } from './store/order.state';
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild([{
-      path: '',
-      component: OrderComponent,
-    }, {
-      path: 'create',
-      component: CreateOrderComponent,
-    }]),
+        path: '',
+        component: OrderComponent,
+        children: [
+          {
+            path: 'create',
+            component: CreateOrderComponent,
+          },
+        ]
+      },
+      {
+        path: '**',
+        redirectTo: '/create'
+      }
+    ]),
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
