@@ -70,7 +70,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       initialNavigation: 'enabled',
     }),
-    ProfileModule,
   ],
   exports: [ RouterModule ],
 })
