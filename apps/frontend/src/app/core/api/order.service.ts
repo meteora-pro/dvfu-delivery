@@ -20,6 +20,10 @@ export class OrderService {
   }
 
   getMyOrders() {
-    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order`);
+    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order?filter=user.id||$eq||1`);
+  }
+
+  getOrderById(id: number) {
+    return this.httpClient.get<Order>(`${environment.serverBaseUrl}/order/${id}`);
   }
 }

@@ -25,4 +25,12 @@ export class UserEntity implements User {
   @ApiProperty()
   @Column()
   telegram: string;
+
+  @ApiProperty({ nullable: true })
+  @Column({ nullable: true })
+  customerRating?: number;
+
+  @ApiProperty({ nullable: true })
+  @Column({ nullable: true })
+  deliveryManRating?: number;
 }

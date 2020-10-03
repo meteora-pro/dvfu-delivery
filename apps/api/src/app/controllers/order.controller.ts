@@ -10,8 +10,16 @@ import { OrderService } from '../services/order.service';
     type: OrderEntity,
   },
   routes: {
-    only: ['getManyBase', 'createOneBase'],
+    only: ['getManyBase', 'createOneBase', 'getOneBase'],
   },
+  query: {
+    join: {
+      user: {
+        eager: true,
+        allow: [ 'id', 'name', 'telegram' ],
+      }
+    }
+  }
 })
 @Controller("order")
 export class OrderController implements CrudController<OrderEntity> {

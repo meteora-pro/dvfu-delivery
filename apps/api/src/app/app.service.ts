@@ -1,7 +1,6 @@
+import { ServerVersionInfo } from "@dvfu-delivery/types";
 import { Injectable } from '@nestjs/common';
-import {ServerVersionInfo} from "@dvfu-delivery/types";
-import {AppConfig} from "./app.config";
-
+import { AppConfig } from "./app.config";
 
 
 @Injectable()
