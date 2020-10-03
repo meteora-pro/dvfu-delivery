@@ -1,5 +1,20 @@
 # DvfuDelivery
 
+## Запуск всего проекта
+Нужен docker-compose
+`docker-compose up`
+
+### Локальный запуск бэкенда и фронта
+Для бэка нужна база, поэтому есть docker-compose.dev.yaml файл
+Для локально разработки нужны
+* nodejs
+* postgresSQL (можно поднять через docker-compose.dev.yaml)
+`docker-compose up -f ./docker-compose.dev.yaml`
+
+Для удовства внутри docker-compose еще лежит pgadmin.
+
+
+
 This project was generated using [Nx](https://nx.dev).
 
 <p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
