@@ -53,6 +53,7 @@ export class OrderPositionListFormComponent implements ControlValueAccessor, Val
 
   emitEvent() {
     this.onChange(this.items);
+    this.cdr.detectChanges();
   }
 
   add() {
@@ -65,7 +66,6 @@ export class OrderPositionListFormComponent implements ControlValueAccessor, Val
       if (result) {
         this.items = [result, ...this.items];
         this.emitEvent();
-        this.cdr.detectChanges();
       }
     });
   }
@@ -97,7 +97,6 @@ export class OrderPositionListFormComponent implements ControlValueAccessor, Val
           return el;
         });
         this.emitEvent();
-        this.cdr.detectChanges();
       }
     });
   }

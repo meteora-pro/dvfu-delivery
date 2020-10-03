@@ -1,3 +1,5 @@
+import { LocalOrderData } from '../store/order.model';
+
 export const shopListMock = [{
   id: 1,
   name: 'Три березки',
@@ -20,3 +22,10 @@ export const expiredTimeList = [{
   title: '1 час',
   minutes: 60,
 }];
+
+export const defaultOrderPositionsData: LocalOrderData = {
+  deliveryTo: 'Кампус ДВФУ',
+  shopId: 1,
+  expiredTime: 15,
+  orderPositionList: [{title: 'Test', maxCost: 500}, {title: 'Огурцы', maxCost: 250}],
+};

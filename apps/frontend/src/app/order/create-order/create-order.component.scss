@@ -31,3 +31,27 @@ form {
   }
 }
 
+.appraisal-block {
+  mat-divider {
+    margin: 16px 0;
+  }
+}
+
+.appraisal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  position: relative;
+  margin-bottom: 12px;
+  &__dotted {
+    border-bottom: 1px dashed #B0BEC5;
+    flex-grow: 1;
+    margin: 0 5px;
+  }
+  &__value {
+    &.total {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+}
