@@ -8,6 +8,8 @@ export interface User {
   email: string;
   telegram: string;
   avatar: string;
+  readonly customerRating: number; // рейтинг от 1 до 5 как скользящее средние от 10 последних выполненных (получение) заказов
+  readonly deliveryManRating: number; // рейтинг от 1 до 5 как скользящее средние от 10 последних выполненных (доставка заказов
 }
 
 export enum OrderStatus {
@@ -16,7 +18,7 @@ export enum OrderStatus {
   ACCEPTED_BY_DELIVERYMAN = 'ACCEPTED_BY_DELIVERYMAN',
   IN_PROGRESS = 'IN_PROGRESS',
   COLLECTED = 'COLLECTED',
-  READY_TO_TRANSFER= 'READY_TO_TRANSFER',
+  READY_TO_TRANSFER = 'READY_TO_TRANSFER',
   CANCELED = 'CANCELED',
   DISPUTE = 'DISPUTE',
   CLOSED = 'CLOSED',
@@ -55,10 +57,10 @@ export interface OrderPosition {
 }
 
 export enum DeliveryStatus {
-  OPENED= 'OPENED',
-  IN_PROGRESS= 'IN_PROGRESS',
-  CANCELED= 'CANCELED',
-  CLOSED= 'CLOSED',
+  OPENED = 'OPENED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  CANCELED = 'CANCELED',
+  CLOSED = 'CLOSED',
 }
 
 export interface Delivery {
@@ -74,7 +76,5 @@ export interface Shop {
   name: string;
   description: string;
 }
-
-
 
 // Сделать вычисление рейтинга

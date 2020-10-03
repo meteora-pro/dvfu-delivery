@@ -1,0 +1,33 @@
+.order-card {
+  margin: 20px 10px;
+
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+
+  .description {
+    &__store {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+
+
+  &__store-name {
+    margin-left: 5px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: row;
+    margin-bottom: 0 !important;
+  }
+}
+
+::ng-deep.mat-card-header-text {
+  width: 100%;
+}
