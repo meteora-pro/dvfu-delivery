@@ -23,15 +23,18 @@
       </span>
     </div>
 
-    <div class="order-card__description">
-      <div class="description__store color-gray">
-        <mat-icon class="gray">store</mat-icon> <span class="order-card__store-name">{{order?.shop?.name || 'Любой'}}</span>
+    <div class="description mat-body  color-gray">
+      <div class="description__item">
+        <mat-icon class="gray">store</mat-icon> <span class="description__title">{{order?.shop?.name || 'Любой'}}</span>
+      </div>
+      <div class="description__item" *ngIf="order.deliveryTo">
+        <mat-icon class="gray">place</mat-icon> <span class="description__title">{{order?.deliveryTo || ''}}</span>
       </div>
     </div>
 
 
   </mat-card-content>
   <mat-card-actions class="order-card__actions">
-    <button mat-raised-button color="accent">Подробности</button>
+    <button mat-raised-button color="accent" [routerLink]="['../detail/' + order.id]">Подробности</button>
   </mat-card-actions>
 </mat-card>
