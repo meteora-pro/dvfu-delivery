@@ -56,7 +56,9 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ProfileComponent,
+        loadChildren: () =>
+          import('./profile/profile.module').then((m) => m.ProfileModule),
+
       },
     ],
 

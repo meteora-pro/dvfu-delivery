@@ -21,11 +21,11 @@ export class UserController implements CrudController<UserEntity> {
   async postMe(@Body() body: { userId?: string }) {
     if (typeof body.userId === 'number' && !Number.isNaN(body.userId)) {
       const foundUser = await this.service.repo.findOne(body.userId);
-      if (!foundUser) {
-
+      if (!!foundUser) {
+        return foundUser;
       }
     }
-
+    return await this.service.repo.save(this.service.createMockUser());
   }
 
   calculateRatings() {}
