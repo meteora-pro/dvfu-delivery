@@ -5,6 +5,7 @@ import { AppConfig } from './app.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DeliveryController } from './controllers/delivery.controller';
 import { OrderController } from './controllers/order.controller';
 import { UserController } from './controllers/user.controller';
 import { DeliveryEntity } from './entities/delivery.entity';
@@ -32,6 +33,7 @@ import { UserService } from './services/user.service';
     AppController,
     OrderController,
     UserController,
+    DeliveryController,
   ],
   providers: [
     AppService,
