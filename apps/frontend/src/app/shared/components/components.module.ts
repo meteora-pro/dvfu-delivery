@@ -5,9 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 const sharedComponents = [
-  OrderCardComponent
+  OrderCardComponent,
+  OrderDetailComponent
 ]
 
 @NgModule({
