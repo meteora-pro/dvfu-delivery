@@ -1,8 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from "@nestjs/config";
 import { ConnectionOptions } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { inspect } from 'util';
 import * as packageJson from '../../package.json';
 import * as ormConfig from '../../../../ormconfig.js';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
@@ -36,7 +35,7 @@ export class AppConfig {
       password: this.configService.get('POSTGRES_PASSWORD')  || connection.password,
       database: this.configService.get('DB_NAME')|| connection.database,
     };
-    const dbConnection = {
+    return {
       ...connection,
       ...overrideConfig,
       // оверайдим entities из ormconfig.js для более быстрого запуска проекта
@@ -47,8 +46,5 @@ export class AppConfig {
       ],
       name: 'default'
     };
-
-    Logger.verbose(`CONNECT TO ${connection.name} db: ${connection.database} ${inspect(dbConnection)} ${process.env.NODE_ENV}`);
-    return dbConnection;
   }
 }

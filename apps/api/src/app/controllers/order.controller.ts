@@ -10,7 +10,7 @@ import { OrderService } from '../services/order.service';
     type: OrderEntity,
   },
   routes: {
-    only: ['getManyBase', 'createOneBase'],
+    only: ['getManyBase', 'createOneBase', 'getOneBase'],
   },
 })
 @Controller("order")
