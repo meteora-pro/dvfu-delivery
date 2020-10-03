@@ -4,6 +4,7 @@ import { LinkDeliveryBody, Order } from '@dvfu-delivery/types';
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { UserService } from './user.service';
 
 export interface OrderCreateDto extends Pick<Order, 'shop' | 'positions' | 'expiredAt' | 'deliveryTo'> {}
 
@@ -12,14 +13,17 @@ export interface OrderCreateDto extends Pick<Order, 'shop' | 'positions' | 'expi
 })
 export class OrderService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private userService: UserService,
+  ) { }
 
   orderCache = new Map<number, Order>();
 
   createOrder(order: OrderCreateDto) {
     return this.httpClient.post<Order>(`${environment.serverBaseUrl}/order`, {
       ...order,
-      user: { id: 1 },
+      user: { id: this.userService.currentUser$.value?.id },
     });
   }
 

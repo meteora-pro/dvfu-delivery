@@ -31,9 +31,9 @@
   </mat-card-content>
   <mat-card-actions align="end">
     <a routerLink="/delivery/create" mat-stroked-button mat-button>Назад</a>
-    <button *ngIf="order?.deliveryMan?.id === null || order?.deliveryMan?.id !== (currentUser$ | async)?.id; else cancelOrderTmpl" mat-raised-button color="accent">Взять заказ в доставку</button>
+    <button *ngIf="order?.deliveryMan?.id === null || order?.deliveryMan?.id !== (currentUser$ | async)?.id; else cancelOrderTmpl" mat-raised-button color="accent" (click)="addOrder()">Взять заказ в доставку</button>
     <ng-template #cancelOrderTmpl>
-      <button mat-raised-button color="warn">Отказаться от заказа</button>
+      <button mat-raised-button color="warn" (click)="cancelOrder()">Отказаться от заказа</button>
     </ng-template>
 
   </mat-card-actions>

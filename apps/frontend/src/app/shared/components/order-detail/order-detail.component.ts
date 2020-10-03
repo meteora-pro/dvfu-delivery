@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Order } from '@dvfu-delivery/types';
 import { of } from 'rxjs';
 
@@ -11,6 +11,9 @@ export class OrderDetailComponent {
 
   @Input() order: Order;
 
+  @Output() orderAdded = new EventEmitter<void>();
+  @Output() orderCanceled = new EventEmitter<void>();
+
   productPlural = {
     zero: "",
     one: "# товар",
@@ -21,5 +24,11 @@ export class OrderDetailComponent {
   currentUser$ = of(null);
 
 
+  addOrder() {
+    this.orderAdded.emit();
+  }
 
+  cancelOrder() {
+    this.orderCanceled.emit();
+  }
 }

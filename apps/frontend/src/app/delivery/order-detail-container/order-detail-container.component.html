@@ -1,1 +1,1 @@
-<delivery-order-detail [order]="order$ | async"></delivery-order-detail>
+<delivery-order-detail [order]="order$ | async" (orderAdded)="linkOrder()" (orderCanceled)="unlinkOrder()"></delivery-order-detail>
