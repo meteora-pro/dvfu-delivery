@@ -6,11 +6,12 @@ import { CreateDeliveryComponent } from './create-delivery/create-delivery.compo
 import { SharedModule } from '../shared/shared.module';
 import { OrderCheckListComponent } from './order-check-list/order-check-list.component';
 import { OrderDetailContainerComponent } from './order-detail-container/order-detail-container.component';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [DeliveryComponent, CreateDeliveryComponent, OrderCheckListComponent, OrderDetailContainerComponent],
   imports: [
     CommonModule,
+    MatSnackBarModule,
     RouterModule.forChild([
       {
         path: '',

@@ -6,6 +6,7 @@ import { Order, OrderPosition, Shop } from '@dvfu-delivery/types';
 import { OrderAppraisal, OrderStateModel } from './order.model';
 import { defaultOrderPositionsData } from '../mock/order-data.mock';
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 type Ctx = StateContext<OrderStateModel>;
 
@@ -27,6 +28,7 @@ export class OrderState {
   constructor(
     private orderService: OrderService,
     private router: Router,
+    private snackBar: MatSnackBar,
     ) {
   }
 
@@ -73,6 +75,9 @@ export class OrderState {
       deliveryTo: data.deliveryTo
     }).subscribe(() => {
       this.router.navigate(['order', 'list']);
+      this.snackBar.open('Заказ успешно создан', undefined, {
+        duration: 1500,
+      });
     });
   }
 

@@ -27,9 +27,11 @@ export class DeliveryService {
     );
   }
 
-  createDelivery(userId, order: Order) {
+  createDelivery(userId) {
     return this.httpClient.post<Delivery>(`${environment.serverBaseUrl}/delivery`, {
       deliveryman: { id: userId },
-    });
+    }).pipe(
+      tap( delivery => this.$deliveries.next([...this.$deliveries.value, delivery])),
+    );
   }
 }

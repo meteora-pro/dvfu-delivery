@@ -18,6 +18,10 @@ import { OrderService } from '../services/order.service';
       user: {
         eager: true,
         allow: [ 'id', 'customerRating' ],
+      },
+      delivery: {
+        eager: true,
+        allow: [ 'id', 'deliveryman' ],
       }
     }
   }

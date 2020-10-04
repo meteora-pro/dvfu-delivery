@@ -1,6 +1,6 @@
-import { Delivery, Order, OrderPosition, OrderStatus, User } from '@dvfu-delivery/types';
+import {Delivery, Order, OrderPosition, OrderStatus, Shop, User} from '@dvfu-delivery/types';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsDateString, IsString } from 'class-validator';
+import {IsArray, IsDateString, IsObject, IsString} from 'class-validator';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { DeliveryEntity } from './delivery.entity';
 import { UserEntity } from './user.entity';
@@ -31,6 +31,11 @@ export class OrderEntity implements Omit<Order, 'totalMaxCost' | 'deliveryMan'> 
   @ApiProperty({ required: true })
   @Column('jsonb')
   positions: OrderPosition[];
+
+  @IsObject()
+  @ApiProperty({ required: true })
+  @Column('jsonb', { nullable: true })
+  shop: Shop;
 
   @ApiProperty()
   @Column('enum', {enum: OrderStatus, default: OrderStatus.DRAFT})

@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LinkDeliveryBody, Order } from '@dvfu-delivery/types';
+import {LinkDeliveryBody, Order, OrderStatus} from '@dvfu-delivery/types';
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { UserService } from './user.service';
+import {shopListMock} from "../../order/mock/order-data.mock";
 
 export interface OrderCreateDto extends Pick<Order, 'shop' | 'positions' | 'expiredAt' | 'deliveryTo'> {}
 
@@ -21,10 +22,16 @@ export class OrderService {
   orderCache = new Map<number, Order>();
   hasOwnOrders = false;
   createOrder(order: OrderCreateDto) {
+    const foundedShop = [...shopListMock].find( shop => shop.id === order?.shop?.id );
+
+    if (foundedShop) {
+      order.shop = {...foundedShop};
+    }
     return this.httpClient.post<Order>(`${environment.serverBaseUrl}/order`, {
       ...order,
-      user: { id: this.userService.currentUser$.value?.id },
-    }).pipe(
+      user: {id: this.userService.currentUser$.value?.id},
+      staus: OrderStatus.WAITING_DELIVERYMAN
+    } as unknown as Order).pipe(
       tap( () => this.hasOwnOrders = true )
     );
   }
@@ -50,7 +57,7 @@ export class OrderService {
   }
 
   getAvailableOrders() {
-    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order?sort=id,DESC`).pipe(
+    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order?sort=id,DESC&&filter=delivery.id||$isnull&&join=delivery`).pipe(
       map( orders => orders
         .filter( order => order.positions.length > 0)
         .map( calculateOrderFields ).map( order => {
