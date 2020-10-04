@@ -5,6 +5,7 @@ import { OrderService } from '../../core/api/order.service';
 import { Order, OrderPosition, Shop } from '@dvfu-delivery/types';
 import { OrderAppraisal, OrderStateModel } from './order.model';
 import { defaultOrderPositionsData } from '../mock/order-data.mock';
+import {Router} from "@angular/router";
 
 type Ctx = StateContext<OrderStateModel>;
 
@@ -23,7 +24,10 @@ type Ctx = StateContext<OrderStateModel>;
 @Injectable()
 export class OrderState {
 
-  constructor(private orderService: OrderService) {
+  constructor(
+    private orderService: OrderService,
+    private router: Router,
+    ) {
   }
 
   @Selector()
@@ -68,6 +72,7 @@ export class OrderState {
       expiredAt: new Date(Date.now() + minutesToMilliseconds(data.expiredTime)),
       deliveryTo: data.deliveryTo
     }).subscribe(() => {
+      this.router.navigate(['order', 'list']);
     });
   }
 

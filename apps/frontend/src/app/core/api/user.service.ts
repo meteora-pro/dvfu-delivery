@@ -24,7 +24,7 @@ export class UserService {
   }
 
   getMe(): Observable<User> {
-    if (this.currentUser$) {
+    if (this.currentUser$.value) {
       return of(this.currentUser$.value);
     }
     const userId = localStorage.getItem('id');

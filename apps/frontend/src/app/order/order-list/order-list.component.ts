@@ -4,6 +4,9 @@ import { Select, Store } from '@ngxs/store';
 import { OrderState } from '../store/order.state';
 import { Observable } from 'rxjs';
 import { Order } from '@dvfu-delivery/types';
+import {UserService} from "../../core/api/user.service";
+import {OrderService} from "../../core/api/order.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'dvfu-delivery-order-list',
@@ -12,7 +15,11 @@ import { Order } from '@dvfu-delivery/types';
 })
 export class OrderListComponent implements OnInit {
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store,
+    private orderService: OrderService,
+    private router: Router,
+  ) { }
 
   @Select(OrderState.orders)
   orders$: Observable<Order[]>;
@@ -22,6 +29,9 @@ export class OrderListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.orderService.hasOwnOrders) {
+      this.router.navigate(['order','create']);
+    }
     this.store.dispatch(new LoadMyOrders());
   }
 

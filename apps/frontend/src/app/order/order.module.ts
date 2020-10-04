@@ -43,7 +43,7 @@ import { SharedModule } from '../shared/shared.module';
     },
       {
         path: '**',
-        redirectTo: '/create'
+        redirectTo: '/list'
       }
     ]),
     MatIconModule,

@@ -19,16 +19,25 @@ export class OrderService {
   ) { }
 
   orderCache = new Map<number, Order>();
-
+  hasOwnOrders = false;
   createOrder(order: OrderCreateDto) {
     return this.httpClient.post<Order>(`${environment.serverBaseUrl}/order`, {
       ...order,
       user: { id: this.userService.currentUser$.value?.id },
-    });
+    }).pipe(
+      tap( () => this.hasOwnOrders = true )
+    );
   }
 
   getMyOrders() {
-    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order?filter=user.id||$eq||1&sort=id,DESC`);
+    const userId = this.userService.currentUser$.value?.id || 1;
+    return this.httpClient.get<Order[]>(`${environment.serverBaseUrl}/order?filter=user.id||$eq||${userId}&sort=id,DESC`).pipe(
+      tap( orders => {
+        if (orders.length) {
+          this.hasOwnOrders = true;
+        }
+      })
+    );
   }
 
   getOrderById(id: number) {

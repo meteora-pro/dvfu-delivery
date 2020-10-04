@@ -5,6 +5,7 @@ import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operator
 import { DeliveryService } from './core/api/delivery.service';
 import { UserService } from './core/api/user.service';
 import { ServerInfoService } from './server-info.service';
+import {OrderService} from "./core/api/order.service";
 
 @Component({
   selector: 'dvfu-delivery-root',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
     private serverInfoService: ServerInfoService,
     private userService: UserService,
     private deliveryService: DeliveryService,
+    private orderService: OrderService,
   ) {}
 
   title = 'frontend';
@@ -29,6 +31,7 @@ export class AppComponent implements OnInit {
       map( user => user.id ),
       distinctUntilChanged(),
       switchMap( userId => {
+        this.orderService.getMyOrders().subscribe();
         return this.deliveryService.getMyDeliveries(userId);
       }),
     ).subscribe();
