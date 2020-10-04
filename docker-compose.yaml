@@ -11,7 +11,7 @@ services:
     networks:
       - overlay
     ports:
-      - '80:80'
+      - '4200:80'
   api:
     build:
       context: ./
@@ -31,32 +31,8 @@ services:
      POSTGRES_USER: postgres
     ports:
       - '5432:5432'
-    expose:
-      - '5432'
     volumes:
       - 'postgres_data:/var/lib/postgresql/data'
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-    volumes:
-       - pgadmin:/root/.pgadmin
-    ports:
-      - "${PGADMIN_PORT:-5050}:80"
-    networks:
-      - overlay
-    restart: unless-stopped
-  redis:
-    image: "redis:alpine"
-    hostname: "redis"
-    networks:
-      - overlay
-    ports:
-      - '6379:6379'
-    volumes:
-      - 'redis_data:/data'
 volumes:
   postgres_data:
   redis_data:

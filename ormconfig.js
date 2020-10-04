@@ -3,11 +3,11 @@ module.exports = [
     // Соединение для local окружения
     name: "default",
     type: "postgres",
-    host: process.env.POSTGRES_HOST || "localhost",
+    host: process.env.POSTGRES_HOST || "postgres",
     port: +process.env.POSTGRES_PORT || 5432,
     username: process.env.POSTGRES_USERNAME || "postgres",
     password: process.env.POSTGRES_PASSWORD || "ilt0q1drzye",
-    database: process.env.DB_NAME || "api_local",
+    database: process.env.DB_NAME || "postgres",
     logging: true,
     dropSchema: false,
     entities: ["dist/apps/api/apps/api/src/**/*.entity.js"],

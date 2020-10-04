@@ -30,15 +30,6 @@ services:
     networks:
       - overlay
     restart: unless-stopped
-  redis:
-    image: "redis:alpine"
-    hostname: "redis"
-    networks:
-      - overlay
-    ports:
-      - '6379:6379'
-    volumes:
-      - 'redis_data:/data'
 volumes:
   postgres_data:
   redis_data:

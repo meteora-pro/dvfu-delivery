@@ -4,6 +4,10 @@
 * Нужен docker-compose
 * Поднимайте сервисы
 `docker-compose up`
+Должны собраться и поднять 3 сервиса:
+* postgresql
+* nestjs api должен слушать `http://localhost:3333/api/version`
+* angular PWA - хостится на `http://localhost:4200`
 
 ### Локальный запуск фронтенда
 * установите зависимости
